@@ -1,0 +1,24 @@
+template(name='Sessions')
+	.sessions
+			h4.text-center
+				| Sessions
+		.container
+			table.table.table-striped
+				thead
+					tr
+						th.text-center.datepick
+							i.fa.fa-calendar
+							| Date
+						th.text-center
+							| Game
+						th.text-center
+							| Result
+				tbody.text-center
+					each userSessions
+						tr
+							td
+								| !{this.details.date}
+							td
+								| !{this.details.name}
+							td
+								| !{this.details.result}

@@ -1,0 +1,6 @@
+template(name='Home')
+	.home
+		if currentUser
+			+Profile
+		else
+			+Login

@@ -1,0 +1,15 @@
+template(name='Games')
+	.games.text-center
+		.form-group.col-xs-10.col-xs-offset-1
+			select.form-control(id="game-name")
+				each gamesList
+					option(id="!{_id}")
+						| !{this.name}
+		.form-group.col-xs-10.col-xs-offset-1
+			select.form-control(id="game-variant")
+				each selectedGame
+					option(id="!{_id}")
+						| !{this.variant}
+		
+		//
+			input.slider(id="game-speed" data-slider-id="slider" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-val="14")

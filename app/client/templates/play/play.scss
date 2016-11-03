@@ -1,0 +1,29 @@
+/*****************************************************************************/
+/* Play: Style */
+/*****************************************************************************/
+.play {
+	//background-color: black;
+	.incomplete-session {
+		margin-top: 50px;
+
+	}
+	.result {
+		margin-top: 15px;
+		input {
+			text-align: center;
+		}
+	}	
+
+	.begin, .complete {
+		margin-top: 125px;
+		display: inline-block;
+		height: 200px;
+		width: 80%;
+		line-height: 200px;
+		white-space: nowrap;
+		background-color: gray;
+	}
+	.buttons {
+		margin-top: 25px;
+	}
+}

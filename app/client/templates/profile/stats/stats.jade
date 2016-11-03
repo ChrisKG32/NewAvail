@@ -1,0 +1,21 @@
+template(name='Stats')
+	.stats
+		h4.text-center
+			| Stats
+		.form-group
+			select.form-control
+				option
+					| Overall
+				each gameNames
+					option
+						| !{this}
+		ul
+			with stats
+				li
+					| Winnings: !{result}
+				li
+					| Hours Played: !{duration}
+				li
+					| Average Edge: !{edge}
+		.chart-container
+			canvas(id="playingStats" width="300" height="300")

@@ -1,0 +1,30 @@
+template(name='Login')
+	.login
+		if loginForm 'register'
+			+Register
+		else if loginForm 'login'
+			form(id='login-form' role='form')
+				.form-group
+					input.form-control(id='username' type='username' placeholder='Username')
+				.form-group
+					input.form-control(id='password' type='password' placeholder='Password')
+				input.cancel.btn.btn-default.col-xs-4.col-xs-offset-1(value='Cancel')
+				input.btn.btn-success.col-xs-4.col-xs-offset-2(type='submit' value='Log In')
+		else
+			.col-xs-12.home-about
+				h3.page-header.text-center
+					i.fa.fa-lock 
+					| Authorized Users Only
+				h4.text-center
+					| For more information subscribe below
+				.form-group
+					label(for='email')
+					input#email.form-control(type='text' placeholder='Email Address')
+					.btn.btn-default Submit
+				h4.text-center
+					| - or -
+				.signup-login
+					a.btn-register.col-xs-6
+						| Sign Up
+					a.btn-login.col-xs-6
+						| Log In

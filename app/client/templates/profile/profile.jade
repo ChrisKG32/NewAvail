@@ -1,0 +1,10 @@
+template(name='Profile')
+	.profile
+		.navigator
+			if profilePage 'sessions'
+				+Sessions
+			else if profilePage 'stats'
+				+Stats
+			else if profilePage 'expenses'
+				+Expenses
+			

@@ -1,0 +1,36 @@
+template(name='Play')
+	.play.text-center
+		if incompleteSession
+			.incomplete-session.col-xs-12
+				p
+					| Your last session was not properly completed. <br>
+					| Do you wish to update it?
+				button.btn.btn-default.remove-session.col-xs-5
+					| Remove it
+				button.btn.btn-default.update-session.col-xs-5.col-xs-offset-2
+					| Update it
+		else if completedSession
+			.result.col-xs-12
+				.inputs.col-xs-8.col-xs-offset-2
+					.form-group
+						input.form-control(id="bought" type="number" placeholder="bought in")
+					.form-group
+						input.form-control(id="colored" type="number" placeholder="colored up")
+				+Games
+				.inputs.col-xs-8.col-xs-offset-2
+					.form-group
+						input.form-control(id="denom" type="text" placeholder="denomination")
+			.buttons.col-xs-12
+				button.btn.btn-default.cancel.col-xs-5
+					| Cancel
+				button.btn.btn-default.col-xs-5.col-xs-offset-2.submit
+					| Done
+		else if inactive
+			.begin
+				span
+					| Start
+		else
+			.complete
+				span
+					| Stop
+		

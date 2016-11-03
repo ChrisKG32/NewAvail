@@ -1,0 +1,23 @@
+/*****************************************************************************/
+/* Login: Style */
+/*****************************************************************************/
+.login {
+	margin-top: 25px;
+	text-align: center;
+
+	.btn-success, .cancel {
+		margin-top: 15px;
+	}
+
+	.form-control {
+		width: 75%;
+		margin: 0 auto;
+	}
+	.btn-login {
+		text-align: start;
+		border-left: 2px solid black;
+	}
+	.btn-register {
+		text-align: end;
+	}
+}
