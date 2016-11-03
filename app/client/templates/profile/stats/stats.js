@@ -91,7 +91,7 @@ Template.Stats.helpers({
 /* Stats: Lifecycle Hooks */
 /*****************************************************************************/
 Template.Stats.onCreated(function () {
-	this.selectedGame = new ReactiveVar('mississippi stud');
+	this.selectedGame = new ReactiveVar('overall');
 });
 
 Template.Stats.onRendered(function () {
@@ -283,7 +283,9 @@ Template.Stats.onRendered(function () {
         myLineChart = new Chart(ctx).Line(data, options);
     }
 
+    
     initiateChart();
+
 	
 });
 

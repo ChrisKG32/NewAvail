@@ -3,5 +3,12 @@
 /*****************************************************************************/
 .profile {
 	margin-top: 15px;
-	padding-left: 5px;
+	h4 {
+		color: grey;
+
+	}
+	h4.active {
+		color: black;
+		border-bottom: 2px solid black;
+	}
 }

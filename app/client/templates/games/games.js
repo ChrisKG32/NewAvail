@@ -69,7 +69,8 @@ Template.Games.helpers({
 /* Games: Lifecycle Hooks */
 /*****************************************************************************/
 Template.Games.onCreated(function () {
-	this.selectedGame = new ReactiveVar('derp');
+
+	this.selectedGame = new ReactiveVar('mississippi stud');
 });
 
 Template.Games.onRendered(function () {

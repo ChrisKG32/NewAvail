@@ -17,6 +17,12 @@ Router.route('/games', {
   where: 'client'
 });
 
+Router.route('/expense', {
+  name: 'newExpense',
+  controller: 'HomeController',
+  where: 'client'
+});
+
 Router.route('/play', {
   name: 'play',
   controller: 'HomeController',

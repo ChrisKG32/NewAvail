@@ -1,5 +1,14 @@
 template(name='Profile')
 	.profile
+		.col-xs-4
+			h4.sessions.text-center(class="{{activeTab 'sessions'}}")
+				| Sessions
+		.col-xs-4
+			h4.stats.text-center(class="{{activeTab 'stats'}}")
+				| Stats
+		.col-xs-4
+			h4.expenses.text-center(class="{{activeTab 'expenses'}}")
+				| Expenses
 		.navigator
 			if profilePage 'sessions'
 				+Sessions
