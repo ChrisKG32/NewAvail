@@ -19,7 +19,7 @@ Template.Sessions.helpers({
 			var gameId = entry.game;
 			var gameDetails = Games.findOne(gameId);
 			var gameDate = entry.completedAt;
-			var dateFormat = gameDate.getDate() + '/' + (gameDate.getMonth() + 1) + '/' + Number(gameDate.getFullYear().toString().substr(2,4));
+			var dateFormat = (gameDate.getMonth() + 1) + '/' + gameDate.getDate() + '/' + Number(gameDate.getFullYear().toString().substr(2,4));
 			entry.details = {
 				name: gameDetails && gameDetails.name,
 				variant: gameDetails && gameDetails.variant,

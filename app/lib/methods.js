@@ -79,4 +79,8 @@ Meteor.methods({
                     });
     // server method logic
   },
+  'newExpense':function(data){
+
+    Expenses.insert(data);
+  }
 });

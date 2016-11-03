@@ -9,6 +9,18 @@ template(name='Nav')
 						| Avail
 				ul.nav.navbar-nav.hidden
 					li
-						a.btn-resume
+						a.btn-resume(href="{{pathFor route='play'}}")
 							span.glyphicon.glyphicon-play
-							| Resume
+							| Play
+					li
+						a.btn-resume
+							span.fa.fa-book
+							| Study
+					li
+						a.btn-resume(href="{{pathFor route='profile'}}")
+							span.fa.fa-user
+							| Profile
+					li
+						a.btn-resume
+							span.fa.fa-dollar
+							| Expense

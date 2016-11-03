@@ -17,7 +17,13 @@ Router.route('/games', {
   where: 'client'
 });
 
-Router.route('/add-game', {
+Router.route('/play', {
+  name: 'play',
+  controller: 'HomeController',
+  where: 'client'
+});
+
+Router.route('/admin', {
   name: 'addGame',
   controller: 'HomeController',
   where: 'client'
@@ -25,6 +31,12 @@ Router.route('/add-game', {
 
 Router.route('/login', {
   name: 'login',
+  controller: 'HomeController',
+  where: 'client'
+});
+
+Router.route('/profile', {
+  name: 'profile',
   controller: 'HomeController',
   where: 'client'
 });

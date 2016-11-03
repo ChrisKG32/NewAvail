@@ -9,6 +9,10 @@ Template.Nav.events({
 		} else {
 			dropdown.addClass('hidden');
 		}
+	},
+	'click .navbar-nav a':function(e, tmpl){
+		var dropdown = $('.navbar-nav');
+		dropdown.addClass('hidden');
 	}
 });
 

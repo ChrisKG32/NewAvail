@@ -1,2 +1,23 @@
 template(name='Expenses')
 	.expenses
+		h4.text-center
+			| Expenses
+		.container
+			table.table.table-striped
+				thead
+					tr
+						th.text-center
+							| Dates
+						th.text-center
+							| Type
+						th.text-center
+							| Amount
+				tbody.text-center
+					each userExpenses
+						tr
+							td
+								| !{this.date}
+							td
+								| !{this.type}
+							td
+								| !{this.amount}

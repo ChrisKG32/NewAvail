@@ -8,6 +8,11 @@ Template.Expenses.events({
 /* Expenses: Helpers */
 /*****************************************************************************/
 Template.Expenses.helpers({
+	userExpenses:function(){
+		var currentUser = Meteor.userId();
+		var expenseList = Expenses.find({createdBy: currentUser},{sort: {date: -1}}).fetch();
+		return expenseList
+	}
 });
 
 /*****************************************************************************/
