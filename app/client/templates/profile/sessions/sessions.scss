@@ -2,7 +2,34 @@
 /* Sessions: Style */
 /*****************************************************************************/
 .sessions {
-	input.something {
-		display: none !important;
+
+	.container {
+		table.table-fixed {
+			margin-bottom: 0;
+			thead th {
+				padding-left: 0;
+				padding-right: 0;
+			}
+		}
+		.table-content {
+			overflow-y: auto;
+			max-height: 300px;
+			table {
+				table-layout: fixed;
+
+				td.dates {
+					padding-right: 0;
+				}
+				td.results {
+					padding-left: 0;
+				}
+			}
+		}
+	}
+	.extras {
+		margin-bottom: 15px;
+		.form-group {
+
+		}
 	}
 }

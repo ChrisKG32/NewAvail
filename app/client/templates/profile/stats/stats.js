@@ -107,7 +107,7 @@ Template.Stats.onRendered(function () {
     	var options = {
 
             ///Boolean - Whether grid lines are shown across the chart
-            scaleShowGridLines: true,
+            scaleShowGridLines: false,
 
             //Adds $ sign and commas
             scaleLabel: function(label){
@@ -127,7 +127,7 @@ Template.Stats.onRendered(function () {
             scaleShowHorizontalLines: true,
 
             //Boolean - Whether to show vertical lines (except Y axis)
-            scaleShowVerticalLines: true,
+            scaleShowVerticalLines: false,
 
             //Boolean - Whether the line is curved between points
             bezierCurve: true,
@@ -138,15 +138,6 @@ Template.Stats.onRendered(function () {
             //Boolean - Whether to show a dot for each point
             pointDot: false,
 
-            //Number - Radius of each point dot in pixels
-            pointDotRadius: 4,
-
-            //Number - Pixel width of point dot stroke
-            pointDotStrokeWidth: 1,
-
-            //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-            pointHitDetectionRadius: 20,
-
             //Boolean - Whether to show a stroke for datasets
             datasetStroke: true,
 
@@ -155,6 +146,17 @@ Template.Stats.onRendered(function () {
 
             //Boolean - Whether to fill the dataset with a colour
             datasetFill: true,
+
+            legend: {
+            	display: false,
+            	labels: {
+            		display: false
+            	}
+            },
+
+            hover: {
+            	display: false
+            },
 
             //String - A legend template
             legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"

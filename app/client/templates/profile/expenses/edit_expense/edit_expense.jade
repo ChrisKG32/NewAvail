@@ -1,0 +1,38 @@
+template(name='EditExpense')
+	.edit-expense.col-xs-12
+		.input-group.date
+			input.form-control(type="text" id="datepicker" value="!{this.date}" disabled)
+			span.input-group-addon
+				i.fa.fa-calendar
+		.amount
+			.form-group.col-xs-5.no-gutter
+				select.form-control(id="method" value="!{this.method}" disabled)
+					option
+						| Cash
+					option
+						| Other
+			.form-group.col-xs-5.col-xs-offset-2.no-gutter
+				input.form-control(type="number" id="expense-amount" placeholder="Amount" value="!{this.amount}" disabled)
+			.form-group.col-xs-12.no-gutter
+				select.form-control(id="type" value="!{this.type}" disabled)
+					option
+						| Travel
+					option
+						| Food
+					option
+						| Other
+			.form-group.col-xs-12.no-gutter
+				input.form-control(type="text" placeholder="Comments" id="comments" value="!{this.comments}" disabled)
+			.form-group
+				.input-group
+					span.input-group-btn
+						span.btn.btn-primary.btn-file
+							i.fa.fa-camera
+							| Upload
+							input(type="file" id="imgInp" readonly disabled)
+					input.form-control(type="text" id="display-path" value="!{this.fileName}" disabled)
+				img(id="img-upload")
+		a.btn.btn-default.col-xs-5(id="cancel-edit")
+			| Cancel
+		a.col-xs-5.col-xs-offset-2.btn.btn-default(id="submit-expense")
+			| Submit

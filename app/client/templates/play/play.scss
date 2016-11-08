@@ -2,6 +2,7 @@
 /* Play: Style */
 /*****************************************************************************/
 .play {
+	height: calc(100% - 56px);
 	//background-color: black;
 	.incomplete-session {
 		margin-top: 50px;
@@ -15,13 +16,10 @@
 	}	
 
 	.begin, .complete {
-		margin-top: 125px;
-		display: inline-block;
-		height: 200px;
-		width: 80%;
-		line-height: 200px;
-		white-space: nowrap;
-		background-color: gray;
+		//background-color: black;
+		padding-top: 50%;
+		height: 100%;
+		font-size: 800%;
 	}
 	.buttons {
 		margin-top: 25px;

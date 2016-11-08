@@ -2,16 +2,29 @@
 /* Stats: Style */
 /*****************************************************************************/
 .stats {
+
 	
 	ul {
 		list-style: none;
 	}
+
+
 	#playingStats {
 		transform: translateZ(0);
 		padding-left: 5px;		
 		width: 300px !important;
 		height: 300px !important;
 	}
-	
+
+
+	select.game-select {
+
+	}
+	.game-stats {
+
+	}
+	.chart-container {
+		padding: 0;
+	}
 
 }

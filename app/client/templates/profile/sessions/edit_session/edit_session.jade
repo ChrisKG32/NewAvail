@@ -1,0 +1,44 @@
+template(name='EditSession')
+	.edit-session
+		.input-group.date.col-xs-12
+			input.form-control(type="text" id="date" value="!{this.date}" disabled)
+			span.input-group-addon
+				i.fa.fa-calendar
+		.amount
+			.form-group.col-xs-5.no-gutter.text-center
+				label
+					| Duration (Hrs):
+				input.form-control(type="number" id="duration" value="!{this.duration}" disabled)
+			.form-group.col-xs-5.col-xs-offset-2.no-gutter.text-center
+				label
+					| Denom:
+				.input-group
+					span.input-group-addon
+						| $
+					input.form-control(id="denom" type="number" value="!{this.denomination}" disabled)
+			.form-group.col-xs-5.no-gutter.text-center
+				label
+					| Bought:
+				.input-group
+					span.input-group-addon
+						| $
+					input.form-control(id="bought" type="number" value="!{this.bought}" disabled)
+			.form-group.col-xs-5.col-xs-offset-2.no-gutter.text-center
+				label
+					| Colored:
+				.input-group
+					span.input-group-addon
+						| $
+					input.form-control(id="colored" type="number" value="!{this.colored}" disabled)
+			.games.text-center
+				.form-group
+					input.form-control(id="game-name" value="!{this.gameName}" disabled)
+
+				.form-group
+					input.form-control(id="game-variant" value="!{this.variant}" disabled)
+			
+
+		a.btn.btn-default.col-xs-5(id="cancel-edit")
+			| Cancel
+		a.col-xs-5.col-xs-offset-2.btn.btn-default(id="submit-expense")
+			| Submit

@@ -1,21 +1,34 @@
 template(name='Expenses')
 	.expenses
-		.container
-			table.table.table-striped
-				thead
-					tr
-						th.text-center
-							| Date
-						th.text-center
-							| Type
-						th.text-center
-							| Amount
-				tbody.text-center
-					each userExpenses
+		if selectedExpense
+			with selectedExpense
+				+EditExpense
+		else
+			.container.col-xs-12
+				table.table.table-striped.table-fixed
+					thead
 						tr
-							td
-								| !{this.date}
-							td
-								| !{this.type}
-							td
-								| !{this.amount}
+							th.col-xs-3.text-center
+								i.fa.fa-calendar(data-date="" id="exp-datepicker")
+								span.sorting
+									| Date
+									i.fa.fa-caret-down.recent
+							th.col-xs.6.text-center
+								| Type
+							th.col-xs-3.text-center
+								| Amount
+				.table-content
+					table.table.table-striped
+						tbody.text-center
+							each userExpenses
+								tr
+									td.col-xs-2.dates
+										| !{this.date}
+									td.col-xs-8
+										| !{this.type}
+									td.col-xs-2.results
+										| !{this.amount}
+				if singleDay
+					.col-xs-10.col-xs-offset-1
+						h4.text-center
+							| Total: !{singleDay}

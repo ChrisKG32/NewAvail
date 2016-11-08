@@ -11,12 +11,6 @@ Router.route('/', {
   where: 'client'
 });
 
-Router.route('/games', {
-  name: 'games',
-  controller: 'HomeController',
-  where: 'client'
-});
-
 Router.route('/expense', {
   name: 'newExpense',
   controller: 'HomeController',
