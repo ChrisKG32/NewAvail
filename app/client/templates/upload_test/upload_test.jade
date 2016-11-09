@@ -1,0 +1,15 @@
+template(name='UploadTest')
+	.upload-test
+		//
+			with currentUpload
+				| Uploading !{file.name}
+				span(id="progress")
+					| !{progress.get}%
+			else
+				input(id="fileInput" type="file")
+		input.file_bag(type="file")
+		button.upload
+			| Upload
+		each files
+			p
+				| !{percent_uploaded}

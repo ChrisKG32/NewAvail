@@ -62,10 +62,10 @@ Template.Sessions.helpers({
 			
 			previousDay.setDate(selectedDate.getDate()-1);
 			nextDay.setDate(selectedDate.getDate()+1);
-			var sessionList = Sessions.find({createdBy: currentUser, createdAt: {$gte:selectedDate, $lt: nextDay}},
+			var sessionList = Sessions.find({createdBy: currentUser, createdAt: {$gte:selectedDate, $lt: nextDay}, $and: [{createdAt: {$exists: true}}, {completedAt: {$exists: true}}]},
 												{sort: {createdAt: sortBy}}).fetch();
 		} else {
-			var sessionList = Sessions.find({createdBy: currentUser}, {sort: {createdAt: sortBy}}).fetch();
+			var sessionList = Sessions.find({createdBy: currentUser, $and: [{createdAt: {$exists: true}}, {completedAt: {$exists: true}}]}, {sort: {createdAt: sortBy}}).fetch();
 		}
 		
 		_.each(sessionList, function(entry){
@@ -90,7 +90,7 @@ Template.Sessions.helpers({
 			var currentUser = Meteor.userId();
 			var sessionList = Sessions.find(
 				{createdBy: currentUser, createdAt: 
-					{$gte:selectedDate, $lt: nextDay}
+					{$gte:selectedDate, $lt: nextDay}, $and: [{createdAt: {$exists: true}}, {completedAt: {$exists: true}}]
 				}).fetch();
 			if (sessionList && sessionList.length > 0) {
 				var total = 0;
@@ -148,6 +148,7 @@ Template.Sessions.onCreated(function () {
 Template.Sessions.onRendered(function () {
 	var selfVariable = this;
 	$('#datepicker').datepicker({
+		clearBtn: true,
 		autoclose: true,
 		toggleActive:true,
 		todayHighlight: true

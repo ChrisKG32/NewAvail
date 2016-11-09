@@ -31,7 +31,7 @@ template(name='EditExpense')
 							| Upload
 							input(type="file" id="imgInp" readonly disabled)
 					input.form-control(type="text" id="display-path" value="!{this.fileName}" disabled)
-				img(id="img-upload")
+				img(id="img-upload" src="!{this.img}")
 		a.btn.btn-default.col-xs-5(id="cancel-edit")
 			| Cancel
 		a.col-xs-5.col-xs-offset-2.btn.btn-default(id="submit-expense")

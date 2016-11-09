@@ -1,0 +1,27 @@
+/*****************************************************************************/
+/* Settings: Style */
+/*****************************************************************************/
+.settings {
+	height: calc(100% - 56px);
+	overflow-y: scroll;
+
+	.account-settings {
+		text-align: center;
+		
+		h4 {
+			text-align: start;
+			border-bottom: 1px solid #eee;
+		}
+
+		
+	}
+	.investments, .admin-controls {
+		text-align: center;
+		padding-bottom: 50px;
+		
+		h4 {
+			text-align: start;
+			border-bottom: 1px solid #eee;
+		}
+	}
+}

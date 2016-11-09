@@ -20,6 +20,9 @@ Template.Expenses.events({
 	},
 	'click #cancel-edit':function(e, tmpl){
 		tmpl.editExpense.set(false);
+	},
+	'click .clear':function(e, tmpl){
+		tmpl.selectedDate.set(false);
 	}
 });
 
@@ -43,10 +46,10 @@ Template.Expenses.helpers({
 			
 			previousDay.setDate(selectedDate.getDate()-1);
 			nextDay.setDate(selectedDate.getDate()+1);
-			var expenseList = Expenses.find({createdBy: currentUser, createdAt: {$gte:selectedDate, $lt: nextDay}},
-												{sort: {createdAt: sortBy}}).fetch();
+			var expenseList = Expenses.find({createdBy: currentUser, expenseDate: {$gte:selectedDate, $lt: nextDay}},
+												{sort: {expenseDate: sortBy}}).fetch();
 		} else {
-			var expenseList = Expenses.find({createdBy: currentUser}, {sort: {createdAt: sortBy}}).fetch();
+			var expenseList = Expenses.find({createdBy: currentUser}, {sort: {expenseDate: sortBy}}).fetch();
 		}
 		
 		return expenseList
@@ -98,6 +101,7 @@ Template.Expenses.onCreated(function () {
 Template.Expenses.onRendered(function () {
 	var selfVariable = this;
 	$('#exp-datepicker').datepicker({
+		clearBtn: true,
 		autoclose: true,
 		toggleActive:true,
 		todayHighlight: true

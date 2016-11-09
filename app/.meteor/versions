@@ -18,6 +18,7 @@ caching-html-compiler@1.0.7
 callback-hook@1.0.9
 chart:chart@1.0.1-beta.4
 check@1.2.3
+coffeescript@1.1.4
 ddp@1.2.5
 ddp-client@1.2.9
 ddp-common@1.2.6
@@ -51,6 +52,7 @@ iron:router@1.0.13
 iron:url@1.0.11
 jquery@1.11.9
 launch-screen@1.0.12
+lepozepo:s3@5.2.3
 less@1.0.14
 livedata@1.0.18
 localstorage@1.0.11
@@ -73,6 +75,8 @@ npm-bcrypt@0.9.1
 npm-mongo@1.5.49
 observe-sequence@1.0.12
 ordered-dict@1.0.8
+ostrio:cookies@2.0.4
+ostrio:files@1.6.6
 promise@0.8.7
 rajit:bootstrap3-datepicker@1.5.1
 random@1.0.10

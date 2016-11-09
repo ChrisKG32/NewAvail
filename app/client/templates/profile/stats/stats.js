@@ -2,18 +2,26 @@
 /* Stats: Event Handlers */
 /*****************************************************************************/
 Template.Stats.events({
-	'change select':function(e, tmpl){
-		var gameName = $('select').val();
-		if (gameName == 'Overall') {
-			tmpl.selectedGame.set('overall');
+	'change .game-select':function(e, tmpl){
+		var gameName = ($('.game-select').val()).toLowerCase();
+		if (gameName == 'all games') {
+			tmpl.selectedGame.set('all games');
 		} else {
 			tmpl.selectedGame.set(gameName);
 		}
 
 		initiateChart();
+	},
+	'change .player-select':function(e, tmpl){
+		var playerName = ($('.player-select').val()).toLowerCase();
+		if (playerName == 'all players') {
+			tmpl.selectedPlayer.set(false);
+		} else {
+			var playerId = Users.findOne({username: playerName})._id;
+			tmpl.selectedPlayer.set(playerId);
+		}
 
-
-		
+		initiateChart();
 	}
 });
 
@@ -22,12 +30,20 @@ Template.Stats.events({
 /*****************************************************************************/
 Template.Stats.helpers({
 	gameNames:function(){
+		var selectedPlayer = Template.instance().selectedPlayer.get();
 		var currentUser = Meteor.userId();
 		var allGames = Games.find().fetch()
-		var userSessions = Sessions.find({createdBy: currentUser}).fetch();
+		
 		var uniqueNames = [];
 		_.each(allGames, function(entry){
-			var userSession = Sessions.findOne({createdBy: currentUser, game: entry._id});
+			if (selectedPlayer){
+				var userSession = Sessions.findOne({createdBy: selectedPlayer, game: entry._id, 
+					$and: [{createdAt: {$exists: true}}, {completedAt: {$exists: true}}]});
+			} else {
+				var userSession = Sessions.findOne({game: entry._id, 
+					$and: [{createdAt: {$exists: true}}, {completedAt: {$exists: true}}]});
+			}
+			
 			if (userSession){
 				var conflict = false;
 				_.each(uniqueNames, function(game){
@@ -43,11 +59,18 @@ Template.Stats.helpers({
 		return uniqueNames
 	},
 	stats:function(){
+		var selectedPlayer = Template.instance().selectedPlayer.get();
 		var selectedGame = Template.instance().selectedGame.get();
 		var currentUser = Meteor.userId();
 
-		if (selectedGame === 'overall') {
-			var userSessions = Sessions.find({createdBy: currentUser}).fetch();
+		if (selectedGame === 'all games') {
+			if (selectedPlayer){
+				var userSessions = Sessions.find({createdBy: selectedPlayer, 
+					$and: [{createdAt: {$exists: true}}, {completedAt: {$exists: true}}]}).fetch();
+			} else {
+				var userSessions = Sessions.find({$and: [{createdAt: {$exists: true}}, {completedAt: {$exists: true}}]}).fetch();
+			}
+			
 		} else {
 			var games = Games.find({name: selectedGame}).fetch();
 			gameIds = [];
@@ -55,7 +78,14 @@ Template.Stats.helpers({
 				gameIds = gameIds.concat({game: entry._id});
 			})
 			
-			var userSessions = Sessions.find({createdBy: currentUser, $or: gameIds}).fetch();
+			if (selectedPlayer){
+				var userSessions = Sessions.find({createdBy: selectedPlayer,  $or: gameIds, 
+					$and: [{createdAt: {$exists: true}}, {completedAt: {$exists: true}}]}).fetch();
+			} else {
+				var userSessions = Sessions.find({$or: gameIds, 
+					$and: [{createdAt: {$exists: true}}, {completedAt: {$exists: true}}]}).fetch();
+			}
+			
 			
 		}
 		
@@ -81,9 +111,17 @@ Template.Stats.helpers({
 		}
 
 		return data
-
-
-
+	},
+	playerNames:function(){
+		var playerList = Players.find().fetch();
+		var fakeList = [
+			{username: 'Bob'}, 
+			{username: 'Jerry'}, 
+			{username: 'John'},
+			{username: 'Tim'},
+			{username: 'Matt'}
+		];
+		return fakeList
 	}
 });
 
@@ -91,7 +129,10 @@ Template.Stats.helpers({
 /* Stats: Lifecycle Hooks */
 /*****************************************************************************/
 Template.Stats.onCreated(function () {
-	this.selectedGame = new ReactiveVar('overall');
+	var currentUser = Meteor.userId();
+
+	this.selectedPlayer = new ReactiveVar(currentUser);
+	this.selectedGame = new ReactiveVar('all games');
 });
 
 Template.Stats.onRendered(function () {
@@ -163,10 +204,20 @@ Template.Stats.onRendered(function () {
         };
 
         var selectedGame = Template.instance().selectedGame.get();
+        var selectedPlayer = Template.instance().selectedPlayer.get();
 
         var currentUser = Meteor.userId();
-        if (selectedGame === 'overall'){
-        	var userSessions = Sessions.find({createdBy: currentUser}).fetch();
+        if (selectedGame === 'all games'){
+        	if (selectedPlayer){
+        		var userSessions = Sessions.find({createdBy: selectedPlayer, 
+        			$and: [{createdAt: {$exists: true}}, {completedAt: {$exists: true}}]
+        		}).fetch();
+        	} else {
+        		var userSessions = Sessions.find({
+        			$and: [{createdAt: {$exists: true}}, {completedAt: {$exists: true}}]
+        		}).fetch();
+        	}
+        	
         } else {
         	var games = Games.find({name: selectedGame}).fetch();
 			gameIds = [];
@@ -174,7 +225,14 @@ Template.Stats.onRendered(function () {
 				gameIds = gameIds.concat({game: entry._id});
 			})
 			
-			var userSessions = Sessions.find({createdBy: currentUser, $or: gameIds}).fetch();
+			if (selectedPlayer){
+				var userSessions = Sessions.find({createdBy: selectedPlayer, $or: gameIds, 
+					$and: [{createdAt: {$exists: true}}, {completedAt: {$exists: true}}]}).fetch();
+			} else {
+				var userSessions = Sessions.find({$or: gameIds, 
+					$and: [{createdAt: {$exists: true}}, {completedAt: {$exists: true}}]}).fetch();
+			}
+			
         }
         
 
@@ -218,7 +276,9 @@ Template.Stats.onRendered(function () {
 		        evData.push(combinedData.ev + 0);
 		       
 		        //calc variances
-		        var stdDev = (( (combinedData.dev / combinedData.hands) * (combinedData.bet / combinedData.hands) ) * (Math.sqrt(combinedData.hands)));
+		        var stdDev = (( (combinedData.dev / combinedData.hands) * 
+		        	(combinedData.bet / combinedData.hands) ) * 
+		        	(Math.sqrt(combinedData.hands)));
 		         
 		        var goodDev = (stdDev*2) + combinedData.ev;
 

@@ -23,7 +23,7 @@ Router.route('/play', {
   where: 'client'
 });
 
-Router.route('/admin', {
+Router.route('/new-game', {
   name: 'addGame',
   controller: 'HomeController',
   where: 'client'
@@ -37,6 +37,18 @@ Router.route('/login', {
 
 Router.route('/profile', {
   name: 'profile',
+  controller: 'HomeController',
+  where: 'client'
+});
+
+Router.route('/upload', {
+  name: 'uploadTest',
+  controller: 'HomeController',
+  where: 'client'
+});
+
+Router.route('/settings', {
+  name: 'settings',
   controller: 'HomeController',
   where: 'client'
 });

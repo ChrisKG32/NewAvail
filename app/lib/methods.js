@@ -82,5 +82,23 @@ Meteor.methods({
   'newExpense':function(data){
 
     Expenses.insert(data);
+  },
+  'createAccount':function(data){
+
+
+
+    Accounts.createUser({
+        username: data.username,
+        password: data.password          
+    }, function(error){
+
+        if(error){
+            console.log(error.reason);
+        } else {
+            Router.go('home');
+        }
+    });
+
+
   }
 });

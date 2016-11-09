@@ -23,19 +23,28 @@ Template.Login.events({
 		var password = $('#password').val();
 		var confirmPassword = $('#confirm-password').val();
 		var duplicateUser = Meteor.users.findOne({'username': username});
+
+		var data = {
+			username: username,
+			password: password,
+			investor: false,
+			player: true,
+		}
+
 		if (!duplicateUser) {
 			if (password !== confirmPassword) {
 				alert('Password Mismatch');
 			} else {
-				Accounts.createUser({
-					username: username,
-					password: password			
-				}, function(error){
-					if(error){
-						console.log(error.reason);
-					} else {
-						Router.go('home');
-					}
+				
+				Meteor.call('createAccount', data, function(){
+					console.log('successfully created account');
+					
+					var account = Users.findOne({username: data.username})._id;
+					Players.insert({
+						userId: account,
+						player: true,
+						investor: false
+					})
 				});
 			}
 		} else {

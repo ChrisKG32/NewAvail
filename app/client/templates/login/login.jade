@@ -1,15 +1,23 @@
 template(name='Login')
 	.login
 		if loginForm 'register'
-			+Register
+			.register-page
+				+Register
 		else if loginForm 'login'
-			form(id='login-form' role='form')
-				.form-group
-					input.form-control(id='username' type='username' placeholder='Username')
-				.form-group
-					input.form-control(id='password' type='password' placeholder='Password')
-				input.cancel.btn.btn-default.col-xs-4.col-xs-offset-1(value='Cancel')
-				input.btn.btn-success.col-xs-4.col-xs-offset-2(type='submit' value='Log In')
+			.log-in
+				h2.page-header.text-center
+					| Login
+				form(id='login-form' role='form')
+					.form-group
+						label
+							| Username:
+						input.form-control(id='username' type='username' placeholder='Username')
+					.form-group
+						label
+							| Password:
+						input.form-control(id='password' type='password' placeholder='Password')
+					input.cancel.btn.btn-default.col-xs-4.col-xs-offset-1(value='Cancel')
+					input.btn.btn-success.col-xs-4.col-xs-offset-2(type='submit' value='Log In')
 		else
 			.col-xs-12.home-about
 				h3.page-header.text-center

@@ -1,0 +1,67 @@
+template(name='Settings')
+	.settings.col-xs-12
+		if selectedGame
+			with selectedGame
+				+AddGame
+		else
+			h3.text-center
+				span.glyphicon.glyphicon-cog
+				| Settings
+			.account-settings
+				h4.header
+					| Account
+					span.pull-right.fa.fa-minus
+				.section-wrapper.hidden
+					button.btn.btn-default
+						| Change Password
+			.admin-controls
+				if allInvestments
+					.all-investments
+						h4.header
+							| Investments
+							span.pull-right.fa.fa-minus
+						.section-wrapper.hidden
+							table.table.table-striped.investment-table
+								thead
+									tr
+										th.text-center
+											| Date
+										th.text-center
+											| Amount
+										th.text-center
+											| Edit
+								tbody
+									each allInvestments
+										tr
+											td
+												| !{this.createdAt}
+											td
+												| !{this.amount}
+											td
+												span.fa.fa-edit
+				if gamesList
+					.games-list
+						h4.header
+							| Games
+							span.pull-right.fa.fa-minus
+						.section-wrapper.hidden
+							a.btn.btn-default(href="{{pathFor route='addGame'}}")
+								| New Game
+							table.table.table-striped.games-table
+								thead
+									tr
+										th.text-center
+											| Name
+										th.text-center
+											| Variant
+										th.text-center
+											| Edit
+								tbody
+									each gamesList
+										tr
+											td
+												| !{this.name}
+											td
+												| !{this.variant}
+											td.edit-game
+												span.fa.fa-edit

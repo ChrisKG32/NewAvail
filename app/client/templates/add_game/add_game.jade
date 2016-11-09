@@ -6,23 +6,23 @@ template(name='AddGame')
 			.form-group
 				label
 					| Game Name:
-				input.form-control(type="text" id="game-name")
+				input.form-control(type="text" id="game-name" value="!{this.name}")
 			.form-group
 				label
 					| Variant:
-				input.form-control(type="text" id="variant-name")
+				input.form-control(type="text" id="variant-name" value="!{this.variant}")
 			.form-group
 				label
 					| Edge:
-				input.form-control(type="number" id="edge")
+				input.form-control(type="number" id="edge" value="!{this.edge}")
 			.form-group
 				label
 					| Variance:
-				input.form-control(type="number" id="variance")
+				input.form-control(type="number" id="variance" value="!{this.variance}")
 			.form-group
 				label
 					| Speed:
-				input.form-control(type="number" id="speed")
+				input.form-control(type="number" id="speed" value="!{this.speed}")
 			button.btn.btn-default.col-xs-5(id="cancel-game")
 					| Cancel
 			button.col-xs-5.col-xs-offset-2.btn.btn-default(id="submit-game")
