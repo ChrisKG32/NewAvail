@@ -2,7 +2,10 @@
 /* Profile: Style */
 /*****************************************************************************/
 .profile {
-	margin-top: 15px;
+	transform: translateZ(0);
+	-webkit-backface-visibility: hidden !important;
+	height: calc(100% - 56px);
+	padding-top: 15px;
 	h4 {
 		color: grey;
 
@@ -10,5 +13,8 @@
 	h4.active {
 		color: black;
 		border-bottom: 2px solid black;
+	}
+	.navigator {
+		height: calc(100% - 56px);
 	}
 }

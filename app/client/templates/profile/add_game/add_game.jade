@@ -6,7 +6,7 @@ template(name='AddGame')
 			.form-group
 				label
 					| Game Name:
-				input.form-control(type="text" id="game-name" value="!{this.name}")
+				input.form-control(type="text" id="game-name" value="!{this.name}" game-id="!{this._id}")
 			.form-group
 				label
 					| Variant:
@@ -23,7 +23,7 @@ template(name='AddGame')
 				label
 					| Speed:
 				input.form-control(type="number" id="speed" value="!{this.speed}")
-			button.btn.btn-default.col-xs-5(id="cancel-game")
+			a.btn.btn-default.col-xs-5.cancel-game.cancel(href="{{pathFor route='settings'}}")
 					| Cancel
 			button.col-xs-5.col-xs-offset-2.btn.btn-default(id="submit-game")
 					| Submit

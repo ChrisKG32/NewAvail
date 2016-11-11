@@ -1,0 +1,27 @@
+template(name='NewInvestment')
+	.new-investment.col-xs-12
+		.input-wrapper.col-xs-12
+			h4.text-center
+				| New Investment
+			.form-group.col-xs-10.col-xs-offset-1
+				label
+					| Username:
+				select.form-control(id="user-select")
+					each userList
+						option
+							| !{this.username}
+			.form-group.col-xs-10.col-xs-offset-1
+				label
+					| Investment Amount:
+				input.form-control(id="invest-amt" type="number" min="1" max="100000" value="{{this.amount}}" invest-id="{{this._id}}")
+			.form-group.col-xs-10.col-xs-offset-1
+				label
+					| Investment Date:
+				.input-group.date
+					input.form-control(id="invest-date" type="text" value="{{this.valid}}")
+					span.input-group-addon
+						i.fa.fa-calendar
+		a.btn.btn-default.col-xs-5.cancel.cancel-invest
+			| Cancel
+		button.btn.btn-primary.col-xs-5.col-xs-offset-2.submit-investment
+			| Submit

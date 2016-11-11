@@ -12,17 +12,22 @@ template(name='NewExpense')
 					option
 						| Cash
 					option
-						| Other
+						| Card
+					option
+						| Comps
 			.form-group.col-xs-5.col-xs-offset-2.no-gutter
-				input.form-control(type="number" id="expense-amount" placeholder="Amount")
+				.input-group
+					span.input-group-addon
+						| $
+					input.form-control(type="number" id="expense-amount" placeholder="Amount")
 			.form-group.col-xs-12.no-gutter
 				select.form-control(id="type")
 					option
-						| Travel
+						| Lodging
 					option
-						| Food
+						| Gas & Travel
 					option
-						| Other
+						| Food & Snacks
 			.form-group.col-xs-12.no-gutter
 				input.form-control(type="text" placeholder="Comments" id="comments")
 			.form-group
@@ -31,10 +36,10 @@ template(name='NewExpense')
 						span.btn.btn-primary.btn-file
 							i.fa.fa-camera
 							| Upload
-							input(type="file" id="imgInp" readonly)
+							input(type="file" capture="camera" accept="image/*" id="imgInp" readonly)
 					input.form-control(type="text" id="display-path")
 				img(id="img-upload")
-		a.btn.btn-default.col-xs-5(id="cancel-expense" href="{{pathFor route='home'}}")
+		a.btn.btn-default.col-xs-5(id="cancel-expense" href="{{pathFor route='profile'}}")
 					| Cancel
 		a.col-xs-5.col-xs-offset-2.btn.btn-default(id="submit-expense")
 				| Submit

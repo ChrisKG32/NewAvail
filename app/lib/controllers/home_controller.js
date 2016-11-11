@@ -6,6 +6,7 @@ HomeController = RouteController.extend({
   // this.subscribe('item', this.params._id).wait();
   
   subscriptions: function() {
+    
   },
   
   // Subscriptions or other things we want to "wait" on. This also
@@ -14,6 +15,7 @@ HomeController = RouteController.extend({
   // return Meteor.subscribe('post', this.params._id);
   
   waitOn: function () {
+    Meteor.subscribe('Players');
   },
   
   // A data function that can be used to automatically set the data context for
@@ -34,7 +36,12 @@ HomeController = RouteController.extend({
     this.next();
   },
   onBeforeAction: function () {
-    this.next();
+    var currentUser = Meteor.userId();
+    if (currentUser){
+      this.next();
+    } else {
+      this.render('Login');
+    }
   },
   
   // The same thing as providing a function as the second parameter. You can

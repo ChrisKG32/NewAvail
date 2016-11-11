@@ -8,23 +8,30 @@ template(name='Nav')
 					a.navbar-brand
 						| Avail
 				ul.nav.navbar-nav.hidden
-					li
-						a.btn-resume(href="{{pathFor route='play'}}")
-							span.glyphicon.glyphicon-play
-							| Play
-					li
-						a.btn-resume
-							span.fa.fa-book
-							| Study
+					unless investor
+						li
+							a.btn-resume(href="{{pathFor route='play'}}")
+								span.glyphicon.glyphicon-play
+								| Play
+						li
+							a.btn-resume(href="{{pathFor route='newExpense'}}")
+								span.fa.fa-dollar
+								| Expense
 					li
 						a.btn-resume(href="{{pathFor route='profile'}}")
 							span.fa.fa-user
 							| Profile
 					li
-						a.btn-resume(href="{{pathFor route='newExpense'}}")
-							span.fa.fa-dollar
-							| Expense
-					li
 						a.btn-resume(href="{{pathFor route='settings'}}")
 							span.glyphicon.glyphicon-cog
 							| Settings
+					if currentUser
+						li
+							a.log-out
+								span.glyphicon.glyphicon-log-out
+								| Log out
+					else
+						li
+							a.log-in(href="{{pathFor route='login'}}")
+								span.glyphicon.glyphicon-log-in
+								| Log in

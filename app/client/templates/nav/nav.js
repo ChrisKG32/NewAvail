@@ -13,6 +13,9 @@ Template.Nav.events({
 	'click .navbar-nav a':function(e, tmpl){
 		var dropdown = $('.navbar-nav');
 		dropdown.addClass('hidden');
+	},
+	'click .log-out':function(e, tmpl){
+		Meteor.logout();
 	}
 });
 
@@ -20,6 +23,42 @@ Template.Nav.events({
 /* Nav: Helpers */
 /*****************************************************************************/
 Template.Nav.helpers({
+	investor:function(param1){
+		var currentUser = Meteor.userId();
+		var playerProfile = Players.findOne({userId: currentUser});
+		var investor = playerProfile && playerProfile.investor;
+		var player = playerProfile && playerProfile.player;
+
+		if (investor && (!player)){
+			return true
+		} else {
+			return false
+		}
+	},
+	fullPlayer:function(param1){
+		var currentUser = Meteor.userId();
+		var playerProfile = Players.findOne({userId: currentUser});
+		var investor = playerProfile && playerProfile.investor;
+		var player = playerProfile && playerProfile.player;
+
+		if (investor && player){
+			return true
+		} else {
+			return false
+		}
+	},
+	player:function(param1){
+		var currentUser = Meteor.userId();
+		var playerProfile = Players.findOne({userId: currentUser});
+		var investor = playerProfile && playerProfile.investor;
+		var player = playerProfile && playerProfile.player;
+
+		if ((!investor) && player){
+			return true
+		} else {
+			return false
+		}
+	}
 });
 
 /*****************************************************************************/

@@ -17,7 +17,7 @@ Template.Stats.events({
 		if (playerName == 'all players') {
 			tmpl.selectedPlayer.set(false);
 		} else {
-			var playerId = Users.findOne({username: playerName})._id;
+			var playerId = Meteor.users.findOne({username: playerName})._id;
 			tmpl.selectedPlayer.set(playerId);
 		}
 
@@ -114,14 +114,13 @@ Template.Stats.helpers({
 	},
 	playerNames:function(){
 		var playerList = Players.find().fetch();
-		var fakeList = [
-			{username: 'Bob'}, 
-			{username: 'Jerry'}, 
-			{username: 'John'},
-			{username: 'Tim'},
-			{username: 'Matt'}
-		];
-		return fakeList
+		_.each(playerList, function(entry){
+			var userId = entry.userId;
+			var userProfile = Meteor.users.findOne(userId);
+			entry.username = userProfile && userProfile.username
+		});
+
+		return playerList
 	}
 });
 

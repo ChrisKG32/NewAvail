@@ -18,6 +18,12 @@ Template.EditExpense.onCreated(function () {
 });
 
 Template.EditExpense.onRendered(function () {
+	$('.input-group.date').datepicker({
+		clearBtn: true,
+		autoclose: true,
+		toggleActive:true,
+		todayHighlight: true
+	});
 });
 
 Template.EditExpense.onDestroyed(function () {

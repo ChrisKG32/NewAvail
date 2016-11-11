@@ -17,8 +17,9 @@ Template.AddGame.events({
 			variance: variance,
 			speed: speed
 		}
+		var gameId = $('#game-name').attr('game-id');
 
-		var conflict = Games.findOne({name: gameName, variant: variantName});
+		var conflict = Games.findOne({name: gameName, variant: variantName, _id: gameId});
 		if (!conflict){
 			Meteor.call('addGame', data);
 			console.log('Success');
@@ -29,7 +30,21 @@ Template.AddGame.events({
 			$('#variance').val('');
 			$('#speed').val('');
 		} else {
-			console.log('Failed to add game (game already exists)');
+
+			console.log('game already exists');
+			var answer = confirm('Do you want to replace ' + conflict.variant + ' ' + conflict.name + ' with new Data?');
+			if (answer){
+
+				var existingGame = conflict;
+
+
+				Meteor.call('editGame', data, existingGame, function(){
+					console.log('Successfully edited existing game');
+				});
+
+			} else {
+				console.log('game not replaced');
+			}
 		}
 		
 	}

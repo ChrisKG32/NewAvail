@@ -53,10 +53,16 @@ Template.EditSession.helpers({
 /* EditSession: Lifecycle Hooks */
 /*****************************************************************************/
 Template.EditSession.onCreated(function () {
-	this.selectedGame = new ReactiveVar('mississippi stud');
+	this.selectedGame = new ReactiveVar('mississippi stud');	
 });
 
 Template.EditSession.onRendered(function () {
+	$('.input-group.date').datepicker({
+		clearBtn: true,
+		autoclose: true,
+		toggleActive:true,
+		todayHighlight: true
+	});
 });
 
 Template.EditSession.onDestroyed(function () {

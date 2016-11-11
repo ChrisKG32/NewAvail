@@ -11,8 +11,8 @@ Template.Login.events({
 				console.log(error.reason);
 			} else {
 				var currentRoute = Router.current().route.getName();
-				if (currentRoute == 'Login'){
-					Router.go('Welcome');
+				if (currentRoute == 'login'){
+					Router.go('profile');
 				}
 			}
 		});

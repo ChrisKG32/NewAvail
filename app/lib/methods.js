@@ -22,6 +22,23 @@ Meteor.methods({
     Games.insert(data);
     // server method logic
   },
+  'editGame':function(data, existingGame){
+
+    var gameId = existingGame && existingGame._id;
+    data._id = gameId;
+
+    Games.update({_id: gameId}, {$set: 
+        {
+            edge: data.edge,
+            name: data.name,
+            speed: data.speed,
+            variance: data.variance,
+            variant: data.variant
+        }
+
+    });
+
+  },
   'startSession': function (data) {
     
     if (this.isSimulation) {
@@ -84,9 +101,6 @@ Meteor.methods({
     Expenses.insert(data);
   },
   'createAccount':function(data){
-
-
-
     Accounts.createUser({
         username: data.username,
         password: data.password          
@@ -98,7 +112,66 @@ Meteor.methods({
             Router.go('home');
         }
     });
+  },
+  'newInvestment':function(data){
+
+    Investments.insert(data);
+
+  },
+  'editInvestment':function(data, existingInvestment, editData){
+
+    var investId = existingInvestment && existingInvestment._id;
+    if (existingInvestment && existingInvestment.edits){
+        existingInvestment.edits.push(editData);
+    } else {
+        existingInvestment.edits = [];
+        existingInvestment.edits.push(editData);
+    }
+
+    Investments.update({_id: investId}, {$set: 
+        {
+            amount: data.amount,
+            userId: data.userId,
+            valid: data.valid,
+            edits: existingInvestment.edits
+
+        }
+
+    });
+  },
+  'passChange':function(data){
+
+    if (data.password1 === data.password2) {
+
+        if (data.confirmPassword1 === data.confirmPassword2) {
+
+            var oldPassword = data.password2;
+            var newPassword = data.confirmPassword2;
+
+            console.log(oldPassword);
+            console.log(newPassword);
+
+            /*
+            Accounts.changePassword(oldPassword, newPassword, function(error){
+                if (error){
+                    console.log('Password change not completed');
+                }
+            })
+            */
+
+        } else {
+            console.log('Passwords do not match');
+        }
+
+    } else {
+        console.log('Passwords do not match');
+    }
 
 
   }
+  
+
+
+
+
 });

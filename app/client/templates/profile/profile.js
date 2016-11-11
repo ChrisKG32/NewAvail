@@ -44,6 +44,53 @@ Template.Profile.onCreated(function () {
 });
 
 Template.Profile.onRendered(function () {
+
+	
+
+	//swipe functionality
+		var profileStage = document.getElementById('profile');
+		var selfVar = this;
+		var hammertime = new Hammer(profileStage);
+
+		hammertime.on('swipe', function(e){
+			var direction = e.direction;
+
+			var profilePage = selfVar.profilePage.get();
+			if (profilePage === 'stats'){
+				if (direction === 2){
+					selfVar.profilePage.set('expenses');
+				} else if (direction === 4){
+					selfVar.profilePage.set('sessions');
+				}
+			} else if (profilePage === 'sessions'){
+				if (direction === 2){
+					selfVar.profilePage.set('stats');
+				} else if (direction === 4){
+					selfVar.profilePage.set('expenses');
+				}
+			} else if (profilePage === 'expenses'){
+				if (direction === 2){
+					selfVar.profilePage.set('sessions');
+				} else if (direction === 4){
+					selfVar.profilePage.set('stats');
+				}
+			}
+		});
+
+		hammertime.on('press', function(e){
+			var direction = e.direction;
+
+			var profilePage = selfVar.profilePage.get();
+
+			if ((profilePage === 'sessions') || (profilePage === 'expenses')){
+				var target = $(e.target);
+				if (target.hasClass('form-control')){
+					target.removeProp('disabled');
+				}
+			}
+			
+		})
+
 });
 
 Template.Profile.onDestroyed(function () {

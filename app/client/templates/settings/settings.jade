@@ -3,6 +3,9 @@ template(name='Settings')
 		if selectedGame
 			with selectedGame
 				+AddGame
+		else if selectedInvest
+			with selectedInvest
+				+NewInvestment
 		else
 			h3.text-center
 				span.glyphicon.glyphicon-cog
@@ -12,8 +15,11 @@ template(name='Settings')
 					| Account
 					span.pull-right.fa.fa-minus
 				.section-wrapper.hidden
-					button.btn.btn-default
-						| Change Password
+					unless changePassword
+						button.btn.btn-default.cp
+							| Change Password
+					else changePassword
+						+ChangePassword
 			.admin-controls
 				if allInvestments
 					.all-investments
@@ -21,6 +27,9 @@ template(name='Settings')
 							| Investments
 							span.pull-right.fa.fa-minus
 						.section-wrapper.hidden
+							if admin
+								a.btn.btn-default(href="{{pathFor route='newInvestment'}}")
+									| New Investment
 							table.table.table-striped.investment-table
 								thead
 									tr
@@ -34,10 +43,10 @@ template(name='Settings')
 									each allInvestments
 										tr
 											td
-												| !{this.createdAt}
+												| !{this.valid}
 											td
 												| !{this.amount}
-											td
+											td.edit.edit-invest
 												span.fa.fa-edit
 				if gamesList
 					.games-list
@@ -63,5 +72,29 @@ template(name='Settings')
 												| !{this.name}
 											td
 												| !{this.variant}
-											td.edit-game
+											td.edit.edit-game
+												span.fa.fa-edit
+				if notifications
+					.notifications
+						h4
+							| Notifications
+							span.pull-right.fa.fa-minus
+						.section-wrapper.hidden
+							table.table-striped.notifications-table
+								thead
+									tr
+										th.text-center
+											| Name
+										th.text-center
+											| Variant
+										th.text-center
+											| Edit
+								tbody
+									each notifications
+										tr
+											td
+												| !{this.name}
+											td
+												| !{this.variant}
+											td.edit.edit-game
 												span.fa.fa-edit
