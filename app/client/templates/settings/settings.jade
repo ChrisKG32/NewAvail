@@ -13,7 +13,7 @@ template(name='Settings')
 			.account-settings
 				h4.header
 					| Account
-					span.pull-right.fa.fa-minus
+					span.pull-right.fa.fa-plus
 				.section-wrapper.hidden
 					unless changePassword
 						button.btn.btn-default.cp
@@ -25,7 +25,7 @@ template(name='Settings')
 					.all-investments
 						h4.header
 							| Investments
-							span.pull-right.fa.fa-minus
+							span.pull-right.fa.fa-plus
 						.section-wrapper.hidden
 							if admin
 								a.btn.btn-default(href="{{pathFor route='newInvestment'}}")
@@ -52,7 +52,7 @@ template(name='Settings')
 					.games-list
 						h4.header
 							| Games
-							span.pull-right.fa.fa-minus
+							span.pull-right.fa.fa-plus
 						.section-wrapper.hidden
 							a.btn.btn-default(href="{{pathFor route='addGame'}}")
 								| New Game
@@ -78,7 +78,7 @@ template(name='Settings')
 					.notifications
 						h4
 							| Notifications
-							span.pull-right.fa.fa-minus
+							span.pull-right.fa.fa-plus
 						.section-wrapper.hidden
 							table.table-striped.notifications-table
 								thead

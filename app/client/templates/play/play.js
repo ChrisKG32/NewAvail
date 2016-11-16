@@ -2,6 +2,17 @@
 /* Play: Event Handlers */
 /*****************************************************************************/
 Template.Play.events({
+	'blur .inputs input':function(e){
+		var currentTarget = $(e.currentTarget);
+		var inputValue = currentTarget.val();
+		console.log(inputValue.length);
+		if (inputValue.length === 0){
+			currentTarget.addClass('warning');
+		} else {
+			currentTarget.removeClass('warning');
+		}
+		
+	},
 	'click .begin':function(e, tmpl){
 		var incompleteSession = Sessions.findOne({$and: [
 				{createdAt: {$exists: true}},
@@ -51,22 +62,27 @@ Template.Play.events({
 		var gameName = $('#game-name').val().toLowerCase();
 		var gameVariant = $('#game-variant').val().toLowerCase();
 		var currentSession = tmpl.currentSession.get();
-		var data = {
-			_id: currentSession._id,
-			bought: bought,
-			colored: colored,
-			denomination: denomination,
-			name: gameName,
-			variant: gameVariant
-		}
-		Meteor.call('sessionDetails', data, function(error, result){
-			if (error){
-				console.log(error);
-			} else {
-				console.log('updated Session Details');
-				tmpl.currentSession.set(false);
+		if (!bought || !colored || !denomination || !gameName || !gameVariant){
+			alert('Fill all empty fields');
+			$('')
+		} else {
+			var data = {
+				_id: currentSession._id,
+				bought: bought,
+				colored: colored,
+				denomination: denomination,
+				name: gameName,
+				variant: gameVariant
 			}
-		});
+			Meteor.call('sessionDetails', data, function(error, result){
+				if (error){
+					console.log(error);
+				} else {
+					console.log('updated Session Details');
+					tmpl.currentSession.set(false);
+				}
+			});
+		}
 	},
 	'click .remove-session':function(e, tmpl){
 		var incompleteSession = Sessions.findOne({$and: [

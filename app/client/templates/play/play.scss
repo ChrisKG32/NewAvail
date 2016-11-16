@@ -12,6 +12,9 @@
 		margin-top: 15px;
 		input {
 			text-align: center;
+			&.warning {
+				border-color: #a94442;
+			}
 		}
 	}	
 

@@ -30,11 +30,11 @@ Template.Settings.events({
 		var span = currentTarget.find('span');
 		var sectionWrapper = currentTarget.parent().find('.section-wrapper');
 
-		if (span.hasClass('fa-plus')){
-			span.removeClass('fa-plus').addClass('fa-minus');
+		if (span.hasClass('fa-minus')){
+			span.removeClass('fa-minus').addClass('fa-plus');
 			sectionWrapper.addClass('hidden');
 		} else {
-			span.removeClass('fa-minus').addClass('fa-plus');
+			span.removeClass('fa-plus').addClass('fa-minus');
 			sectionWrapper.removeClass('hidden');
 		}
 	},

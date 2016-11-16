@@ -2,6 +2,19 @@
 /* NewExpense: Event Handlers */
 /*****************************************************************************/
 Template.NewExpense.events({
+  'click input[type="file"]':function(e){
+    e.preventDefault();
+    if (Meteor.isCordova){
+      MeteorCameraUI.getPicture({
+        quality: 75
+      },function(e, data){
+        $('#img-upload').attr('src', data);
+        //$('#display-path').val();
+        dataURI = data;
+
+      });
+    }
+  },
 	'change .btn-file:file':function(){
 		var input = $(this),
 			label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
@@ -26,35 +39,35 @@ Template.NewExpense.events({
 		var displayPath = $('#display-path').val();
 		var imgURL = '';
 
-		if (displayPath){
-			var files = $('input#imgInp')[0].files;
+		if (dataURI){
+      /*
+			//var files = $('input#imgInp')[0].files;
 			S3.upload({
-				files: files,
+				files: fd,
 				path: '/'
 			}, function(e, r){
 				console.log(r);
 
-				imgURL = r.secure_url;
-
-				var data = {
-					createdAt: new Date(),
-					expenseDate: new Date(datepicker.replace(/\//g, '-')),
-					createdBy: currentUser,
-					date: datepicker,
-					method: method,
-					amount: amount,
-					type: type,
-					comments: comments,
-					fileName: displayPath,
-					img: imgURL
-				}
-
-
-				Meteor.call('newExpense', data, function(){
-					console.log('Logged Expense Successfully');
-				});
-
 			});
+      */
+      var data = {
+          createdAt: new Date(),
+          expenseDate: new Date(datepicker.replace(/\//g, '-')),
+          createdBy: currentUser,
+          date: datepicker,
+          method: method,
+          amount: amount,
+          type: type,
+          comments: comments,
+          fileName: displayPath,
+          img: dataURI
+        }
+
+
+        Meteor.call('newExpense', data, function(){
+          console.log('Logged Expense Successfully');
+        });
+
 		} else {
 			var data = {
 					createdAt: new Date(),
@@ -66,7 +79,7 @@ Template.NewExpense.events({
 					type: type,
 					comments: comments,
 					fileName: displayPath,
-					img: imgURL
+					img: ''
 				}
 
 
@@ -103,6 +116,8 @@ Template.NewExpense.onCreated(function () {
 });
 
 Template.NewExpense.onRendered(function () {
+    
+
 	$('.input-group.date').datepicker({
 	    autoclose: true
 	});

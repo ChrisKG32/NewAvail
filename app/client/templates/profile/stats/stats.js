@@ -351,6 +351,7 @@ Template.Stats.onRendered(function () {
 });
 
 Template.Stats.onDestroyed(function () {
+	
 });
 
 
