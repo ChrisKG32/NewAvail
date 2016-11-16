@@ -49,6 +49,12 @@ Router.route('/login', {
   where: 'client'
 });
 
+Router.route('/register', {
+  name: 'register',
+  controller: 'HomeController',
+  where: 'client'
+});
+
 Router.route('/profile', {
   name: 'profile',
   controller: 'HomeController',

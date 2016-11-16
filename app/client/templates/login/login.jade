@@ -1,38 +1,40 @@
 template(name='Login')
 	.login
 		if loginForm 'register'
-			.register-page
-				+Register
-		else if loginForm 'login'
-			.log-in
-				h2.page-header.text-center
-					| Login
-				form(id='login-form' role='form')
-					.form-group
+			.col-xs-12
+				.logo
+					h3.text-center
+						| New Account
+				form.signup(autocomplete="off")
+					.form-group.col-xs-12
 						label
-							| Username:
-						input.form-control(id='username' type='username' placeholder='Username')
-					.form-group
-						label
-							| Password:
-						input.form-control(id='password' type='password' placeholder='Password')
-					input.cancel.btn.btn-default.col-xs-4.col-xs-offset-1(value='Cancel')
-					input.btn.btn-success.col-xs-4.col-xs-offset-2(type='submit' value='Log In')
+							| Username
+						input.username.form-control(type="text" id="username" autocomplete="off" autofocus)
+					.form-group.col-xs-12
+						input.password.form-control(type="password" id="password" autocomplete="off" placeholder="New password")
+					.form-group.col-xs-12
+						input.confirm-password.form-control(type="password" id="confirm-password" autocomplete="off" placeholder="Confirm password")
+
+					.form-buttons
+						button.btn.btn-default.btn-signup.col-xs-12(type="submit")
+							| CREATE ACCOUNT
+					span.text-center.return-login
+						| Already have account? Login here.
 		else
-			.col-xs-12.home-about
-				h3.page-header.text-center
-					i.fa.fa-lock 
-					| Authorized Users Only
-				h4.text-center
-					| For more information subscribe below
-				.form-group
-					label(for='email')
-					input#email.form-control(type='text' placeholder='Email Address')
-					.btn.btn-default Submit
-				h4.text-center
-					| - or -
-				.signup-login
-					a.btn-register.col-xs-6
-						| Sign Up
-					a.btn-login.col-xs-6
-						| Log In
+			.col-xs-12
+				.logo
+					h2
+						| Avail
+				form.login(autocomplete="off")
+					.form-group.col-xs-12
+						label
+							| Username
+						input.username.form-control(type="text" id="username" autocomplete="off" autofocus)
+					.form-group.col-xs-12
+						input.password.form-control(type="password" id="password" autocomplete="off" placeholder="Password")
+
+					.form-buttons
+						button.btn.btn-default.btn-login.col-xs-12(type="submit")
+							| LOGIN
+					span.text-center.create-account
+						| Create new account.

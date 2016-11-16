@@ -2,6 +2,8 @@
 /* Stats: Style */
 /*****************************************************************************/
 .stats {
+	transform: translateZ(0);
+	-webkit-backface-visibility: hidden;
 
 	.form-group {
 		margin-bottom: 10px;

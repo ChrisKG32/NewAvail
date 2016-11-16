@@ -2,7 +2,7 @@
 /* Login: Event Handlers */
 /*****************************************************************************/
 Template.Login.events({
-	'submit #login-form':function(e){
+	'submit form.login':function(e){
 		e.preventDefault();
 		var username = $('#username').val();
 		var password = $('#password').val();
@@ -10,14 +10,11 @@ Template.Login.events({
 			if(error){
 				console.log(error.reason);
 			} else {
-				var currentRoute = Router.current().route.getName();
-				if (currentRoute == 'login'){
-					Router.go('profile');
-				}
+				Router.go('play');
 			}
 		});
 	},
-	'submit #signup-form':function(e){
+	'submit form.signup':function(e){
 		e.preventDefault();
 		var username = $('#username').val();
 		var password = $('#password').val();
@@ -51,7 +48,7 @@ Template.Login.events({
 			console.log('User already exists');
 		}
 	},
-	'click .btn-register':function(e, tmpl){
+	'click .create-account':function(e, tmpl){
 		var passcode = prompt('Enter Passcode');
 		var correctPasscode = 1947;
 		if (passcode == correctPasscode){
@@ -62,7 +59,7 @@ Template.Login.events({
 	'click .btn-login':function(e, tmpl){	
 		tmpl.authorize.set('login');
 	},
-	'click .cancel':function(e, tmpl){
+	'click .return-login':function(e, tmpl){
 		tmpl.authorize.set(false);
 	}
 });
