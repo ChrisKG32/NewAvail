@@ -115,25 +115,7 @@ Template.Play.events({
 /* Play: Helpers */
 /*****************************************************************************/
 Template.Play.helpers({
-	inactive:function(){
-		var active = Sessions.findOne({ $and: 
-			[
-				{createdAt: {$exists: true}}, 
-				{completedAt: {$exists: false}}
-			]
-		});
-		if (active) {
-			return false
-		} else {
-			return true
-		}
-
-	},
-	completedSession:function(){
-		var currentSession = Template.instance().currentSession.get();
-		return currentSession
-	},
-	incompleteSession:function(){
+	display:function(param1){
 		var incompleteSession = Sessions.findOne({$and: [
 				{createdAt: {$exists: true}},
 				{completedAt: {$exists: true}},
@@ -141,11 +123,27 @@ Template.Play.helpers({
 			]
 		});
 		var currentSession = Template.instance().currentSession.get();
-		if (!currentSession && incompleteSession){
+		if ((!currentSession && incompleteSession) && param1 === 'incomplete'){
 			return true
 			//Template.instance().currentSession.set(incompleteSession)
 		} else {
-			return false
+			var currentSession = Template.instance().currentSession.get();
+
+			if (currentSession && param1 === 'completed'){
+				return true
+			} else {
+				var active = Sessions.findOne({ $and: 
+					[
+						{createdAt: {$exists: true}}, 
+						{completedAt: {$exists: false}}
+					]
+				});
+				if (!active && param1 === 'inactive') {
+					return true
+				} else {
+					return false
+				}
+			}
 		}
 	}
 });
