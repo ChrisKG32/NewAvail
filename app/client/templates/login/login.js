@@ -2,6 +2,32 @@
 /* Login: Event Handlers */
 /*****************************************************************************/
 Template.Login.events({
+	'click .btn-choose':function(e, tmpl){
+		var authorize = tmpl.authorize.get();
+
+		var accountType = authorize;
+		tmpl.authorize.set('register4');
+	},
+	'click .fa-chevron-right':function(e, tmpl){
+		var register = tmpl.authorize.get();
+		if (register === 'register1'){
+			tmpl.authorize.set('register2');
+		} else if (register === 'register2'){
+			tmpl.authorize.set('register3');
+		} else if (register === 'register3'){
+			tmpl.authorize.set('register1');
+		}
+	},
+	'click .fa-chevron-left':function(e, tmpl){
+		var register = tmpl.authorize.get();
+		if (register === 'register1'){
+			tmpl.authorize.set('register3');
+		} else if (register === 'register2'){
+			tmpl.authorize.set('register1');
+		} else if (register === 'register3'){
+			tmpl.authorize.set('register2');
+		}
+	},
 	'submit form.login':function(e){
 		e.preventDefault();
 		var username = $('#username').val();
@@ -52,7 +78,7 @@ Template.Login.events({
 		var passcode = prompt('Enter Passcode');
 		var correctPasscode = 1947;
 		if (passcode == correctPasscode){
-			tmpl.authorize.set('register');
+			tmpl.authorize.set('register1');
 
 		}
 	},
@@ -68,9 +94,9 @@ Template.Login.events({
 /* Login: Helpers */
 /*****************************************************************************/
 Template.Login.helpers({
-	loginForm:function(data1){
+	loginForm:function(param1, param2, param3){
 		var authorized = Template.instance().authorize.get();
-		if (authorized == data1){
+		if (authorized == param1 || authorized === param2 || authorized === param3){
 			return true
 		} else {
 			return false
@@ -83,6 +109,7 @@ Template.Login.helpers({
 /*****************************************************************************/
 Template.Login.onCreated(function () {
 	this.authorize = new ReactiveVar(false);
+	this.register = new ReactiveVar(false);
 });
 
 Template.Login.onRendered(function () {

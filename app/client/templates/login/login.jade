@@ -1,6 +1,53 @@
 template(name='Login')
 	.login
-		if loginForm 'register'
+		if loginForm 'register1' 'register2' 'register3'
+			.col-xs-12
+				.account-type
+					h3.text-center
+						span.fa.fa-chevron-right.pull-right
+						span.fa.fa-chevron-left.pull-left
+						if loginForm 'register1'
+							| Standard Account
+							br
+							small
+								| $5 / month
+						else if loginForm 'register2'
+							| Team Account
+							br
+							small
+								| $2 / month
+						else if loginForm 'register3'
+							| Team Manager Account
+							br
+							small
+								| $50 / month
+					ul
+						li 
+							span.fa.fa-angle-right
+							| Track Your Casino Play
+						li
+							span.fa.fa-angle-right
+							| Analyze Results
+						li
+							span.fa.fa-angle-right
+							| View and Upload Strategies
+						if loginForm 'register2' 'register3'
+							li
+								span.fa.fa-angle-right
+								| Track Team Play
+						if loginForm 'register3'
+							li 
+								span.fa.fa-angle-right
+								| Manage Team
+							li 
+								span.fa.fa-angle-right
+								| Customize Team Functionality
+				.form-buttons.text-center
+					button.btn.btn-default.btn-choose.col-xs-12(type="submit")
+						| CHOOSE SUBSCRIPTION
+					span.text-center.return-login
+						| Already have account? Login here.
+		else if loginForm 'register4'
 			.col-xs-12
 				.logo
 					h3.text-center
@@ -20,6 +67,7 @@ template(name='Login')
 							| CREATE ACCOUNT
 					span.text-center.return-login
 						| Already have account? Login here.
+
 		else
 			.col-xs-12
 				.logo

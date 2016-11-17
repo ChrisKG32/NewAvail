@@ -13,6 +13,23 @@
 			text-align: center;
 		}
 	}
+	.form-buttons {
+		padding: 0px 15px;
+		button {
+			color: rgb(100,100,100);
+			font-weight: bold;
+			height: 40px;
+			background-color: rgb(240,240,240);
+			border: none;
+			box-shadow: 0px 1px 1px rgb(150,150,150);
+			margin-bottom: 15px;
+
+			&:hover {
+				box-shadow: inset 0px 1px 1px rgb(150,150,150);
+			}
+			
+		}
+	}
 
 	form.login, form.signup {
 
@@ -39,23 +56,7 @@
 				border-color: rgb(25,25,25);
 			}
 		}
-		.form-buttons {
-			padding: 0px 15px;
-			button {
-				color: rgb(100,100,100);
-				font-weight: bold;
-				height: 40px;
-				background-color: rgb(240,240,240);
-				border: none;
-				box-shadow: 0px 1px 1px rgb(150,150,150);
-				margin-bottom: 15px;
-
-				&:hover {
-					box-shadow: inset 0px 1px 1px rgb(150,150,150);
-				}
-				
-			}
-		}
+		
 		span {
 			color: rgb(100,100,100);
 			&:hover {
@@ -64,31 +65,23 @@
 		}
 
 	}
-
-	/*
-	text-align: center;
-
-	.btn-success, .cancel {
-		margin-top: 15px;
-	}
-
-	.form-control {
-		width: 75%;
-		margin: 0 auto;
-	}
-
-	.signup-login{
-		font-size: 150%;
-		.btn-login {
-			text-align: start;
-			border-left: 2px solid black;
-		}
-		.btn-register {
-			text-align: end;
+	ul {
+		text-align: start;
+		list-style: none;
+		li {
+			font-size: 120%;
 		}
 	}
-	.log-in {
-		margin-top: 20px;
+	.account-type {
+		text-align: center;
+		height: 300px;
+		h3 {
+			border-bottom: 2px solid #9d9d9d;
+			margin-bottom: 25px;
+			span.fa {
+				color: #9d9d9d;
+				transform: translateY(60%);
+			}
+		}
 	}
-	*/
 }
