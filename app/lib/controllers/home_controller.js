@@ -15,7 +15,9 @@ HomeController = RouteController.extend({
   // return Meteor.subscribe('post', this.params._id);
   
   waitOn: function () {
-    Meteor.subscribe('Players');
+
+      return Meteor.subscribe('Players');
+    
   },
   
   // A data function that can be used to automatically set the data context for

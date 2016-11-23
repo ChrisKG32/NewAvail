@@ -4,88 +4,155 @@ Router.configure({
   notFoundTemplate: 'NotFound'
 });
 
-
 Router.route('/', {
-  name: 'home',
+  name: 'Home',
+  template: 'Home',
   controller: 'HomeController',
-  where: 'client'
+  where: 'client',
+  onBeforeAction: function () {
+    var currentUser = Meteor.userId();
+    if (currentUser){
+      this.next();
+    } else {
+      this.render('Login');
+    }
+  }
 });
 
 Router.route('/expense', {
-  name: 'newExpense',
+  name: 'NewExpense',
+  template: 'NewExpense',
   controller: 'HomeController',
   where: 'client'
 });
 
 Router.route('/play', {
-  name: 'play',
+  name: 'Play',
+  template: 'Play',
   controller: 'HomeController',
   where: 'client',
-  subscriptions: function() {
-    
+  onBeforeAction: function () {
+    var currentUser = Meteor.userId();
+    if (currentUser){
+      this.next();
+    } else {
+      this.render('Login');
+    }
   },
   waitOn:function(){
     var currentUser = Meteor.userId();
-     Meteor.subscribe('userSessions', currentUser);
-     Meteor.subscribe('Games');
+    return [
+      Meteor.subscribe('userSessions', currentUser),
+      Meteor.subscribe('Games')
+    ]
   }
 });
 
 Router.route('/new-game', {
-  name: 'addGame',
+  name: 'AddGame',
+  template: 'AddGame',
   controller: 'HomeController',
   where: 'client',
-  subscriptions: function() {
-    
+  onBeforeAction: function () {
+    var currentUser = Meteor.userId();
+    if (currentUser){
+      this.next();
+    } else {
+      this.render('Login');
+    }
   },
   waitOn:function(){
-     Meteor.subscribe('Games');
+    return Meteor.subscribe('Games')
   }
 });
 
 Router.route('/login', {
-  name: 'login',
-  controller: 'HomeController',
-  where: 'client'
-});
-
-Router.route('/register', {
-  name: 'register',
-  controller: 'HomeController',
-  where: 'client'
-});
-
-Router.route('/profile', {
-  name: 'profile',
+  name: 'Login',
+  template: 'Login',
   controller: 'HomeController',
   where: 'client',
-  subscriptions: function(){
-    
-  },
-  waitOn:function(){
+  onBeforeAction: function () {
     var currentUser = Meteor.userId();
-     Meteor.subscribe('userExpenses', currentUser);
-     Meteor.subscribe('Games');
-     Meteor.subscribe('userSessions', currentUser);
+    if (currentUser){
+      this.next();
+    } else {
+      this.render('Login');
+    }
   }
 });
 
-Router.route('/settings', {
-  name: 'settings',
+Router.route('/register', {
+  name: 'Register',
+  template: 'Register',
   controller: 'HomeController',
   where: 'client',
-  subscriptions:function(){
+  onBeforeAction: function () {
+    var currentUser = Meteor.userId();
+    if (currentUser){
+      this.next();
+    } else {
+      this.render('Login');
+    }
+  }
+});
+
+Router.route('/profile', {
+  name: 'Profile',
+  template: 'Profile',
+  controller: 'HomeController',
+  where: 'client',
+  onBeforeAction: function () {
+    var currentUser = Meteor.userId();
+    if (currentUser){
+      this.next();
+    } else {
+      this.render('Login');
+    }
+  },/*
+  waitOn:function(){
     
+      var currentUser = Meteor.userId();
+      return [
+        Meteor.subscribe('Games'),
+        Meteor.subscribe('allSessions', currentUser)
+      ]
+      
+  }*/
+});
+
+Router.route('/settings', {
+  name: 'Settings',
+  template: 'Settings',
+  controller: 'HomeController',
+  where: 'client',
+  onBeforeAction: function () {
+    var currentUser = Meteor.userId();
+    if (currentUser){
+      this.next();
+    } else {
+      this.render('Login');
+    }
   },
   waitOn:function(){
     var currentUser = Meteor.userId();
-     Meteor.subscribe('Investments');
-     Meteor.subscribe('Games');
+    return [
+      Meteor.subscribe('Investments'),
+      Meteor.subscribe('Games')
+    ]
   }
 });
 
 Router.route('/new-investment', {
-  name: 'newInvestment',
+  name: 'NewInvestment',
+  template: 'NewInvestment',
   controller: 'HomeController',
-  where: 'client'
+  where: 'client',
+  onBeforeAction: function () {
+    var currentUser = Meteor.userId();
+    if (currentUser){
+      this.next();
+    } else {
+      this.render('Login');
+    }
+  }
 });

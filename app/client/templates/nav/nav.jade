@@ -11,19 +11,19 @@ template(name='Nav')
 					if currentUser
 						unless investor
 							li
-								a.btn-resume(href="{{pathFor route='play'}}")
+								a.btn-resume(href="{{pathFor route='Play'}}")
 									span.glyphicon.glyphicon-play
 									| Play
 							li
-								a.btn-resume(href="{{pathFor route='newExpense'}}")
+								a.btn-resume(href="{{pathFor route='NewExpense'}}")
 									span.fa.fa-dollar
 									| Expense
 						li
-							a.btn-resume(href="{{pathFor route='profile'}}")
+							a.btn-resume(href="{{pathFor route='Profile'}}")
 								span.fa.fa-user
 								| Profile
 						li
-							a.btn-resume(href="{{pathFor route='settings'}}")
+							a.btn-resume(href="{{pathFor route='Settings'}}")
 								span.glyphicon.glyphicon-cog
 								| Settings
 						li
@@ -32,6 +32,6 @@ template(name='Nav')
 								| Log out
 					else
 						li
-							a.log-in(href="{{pathFor route='login'}}")
+							a.log-in(href="{{pathFor route='Login'}}")
 								span.glyphicon.glyphicon-log-in
 								| Log in

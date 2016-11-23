@@ -1,0 +1,10 @@
+template(name='Incomplete')
+	.incomplete
+		.incomplete-session.col-xs-12.hidden
+			p
+				| Your last session was not properly completed. <br>
+				| Do you wish to update it?
+			button.btn.btn-default.remove-session.col-xs-5
+				| Remove it
+			button.btn.btn-default.update-session.col-xs-5.col-xs-offset-2
+				| Update it

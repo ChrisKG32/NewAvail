@@ -36,7 +36,7 @@ Template.Login.events({
 			if(error){
 				console.log(error.reason);
 			} else {
-				Router.go('play');
+				Router.go('Play');
 			}
 		});
 	},
@@ -83,7 +83,7 @@ Template.Login.events({
 		}
 	},
 	'click .btn-login':function(e, tmpl){	
-		tmpl.authorize.set('login');
+		tmpl.authorize.set('Login');
 	},
 	'click .return-login':function(e, tmpl){
 		tmpl.authorize.set(false);

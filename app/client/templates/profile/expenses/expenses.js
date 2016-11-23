@@ -96,27 +96,40 @@ Template.Expenses.onCreated(function () {
 	this.selectedDate = new ReactiveVar(false);
 	this.sorting = new ReactiveVar(false);
 	this.editExpense = new ReactiveVar(false);
+
+	var currentUser = Meteor.userId();
+
+	var self = this;
+	self.subscribe('userExpenses', currentUser);
+	self.subscribe('allSessions');
+	self.subscribe('Games');
+
+
+
+
 });
 
 Template.Expenses.onRendered(function () {
 	var selfVariable = this;
-	$('#exp-datepicker').datepicker({
-		clearBtn: true,
-		autoclose: true,
-		toggleActive:true,
-		todayHighlight: true
-	}).on('changeDate', function(e, tmpl){
-		var selectedDate = $('#exp-datepicker').datepicker('getFormattedDate');
-		var unformattedDate = $('#exp-datepicker').datepicker('getDate');
-		var currentDate = selfVariable.selectedDate.get();
-		if (currentDate === unformattedDate){
-			selfVariable.selectedDate.set(false);
-		} else {
-			selfVariable.selectedDate.set(unformattedDate);
-		}
-		
-		$('#exp-datepicker').attr('data-date', selectedDate);
-	})
+
+	setTimeout(function(){
+		$('#exp-datepicker').datepicker({
+			autoclose: true,
+			toggleActive:true,
+			todayHighlight: true
+		}).on('changeDate', function(e, tmpl){
+			var selectedDate = $('#exp-datepicker').datepicker('getFormattedDate');
+			var unformattedDate = $('#exp-datepicker').datepicker('getDate');
+			var currentDate = selfVariable.selectedDate.get();
+			if (currentDate === unformattedDate){
+				selfVariable.selectedDate.set(false);
+			} else {
+				selfVariable.selectedDate.set(unformattedDate);
+			}
+			
+			$('#exp-datepicker').attr('data-date', selectedDate);
+		})
+	}, 500);
 });
 
 Template.Expenses.onDestroyed(function () {

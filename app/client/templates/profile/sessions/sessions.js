@@ -62,10 +62,20 @@ Template.Sessions.helpers({
 			
 			previousDay.setDate(selectedDate.getDate()-1);
 			nextDay.setDate(selectedDate.getDate()+1);
-			var sessionList = Sessions.find({createdBy: currentUser, createdAt: {$gte:selectedDate, $lt: nextDay}, $and: [{createdAt: {$exists: true}}, {completedAt: {$exists: true}}]},
-												{sort: {createdAt: sortBy}}).fetch();
+			var sessionList = Sessions.find({createdBy: currentUser, createdAt: {$gte:selectedDate, $lt: nextDay}, 
+				$and: [
+					{colored: {$exists: true}},
+					{createdAt: {$exists: true}}, 
+					{completedAt: {$exists: true}}
+				]},	
+				{sort: {createdAt: sortBy}}).fetch();
 		} else {
-			var sessionList = Sessions.find({createdBy: currentUser, $and: [{createdAt: {$exists: true}}, {completedAt: {$exists: true}}]}, {sort: {createdAt: sortBy}}).fetch();
+			var sessionList = Sessions.find({createdBy: currentUser, 
+				$and: [
+					{colored: {$exists: true}},
+					{createdAt: {$exists: true}}, 
+					{completedAt: {$exists: true}}
+				]}, {sort: {createdAt: sortBy}}).fetch();
 		}
 		
 		_.each(sessionList, function(entry){
@@ -143,27 +153,39 @@ Template.Sessions.onCreated(function () {
 	this.sorting = new ReactiveVar(false);
 	this.sortResult = new ReactiveVar(false);
 	this.editSession = new ReactiveVar(false);
+
+	var self = this;
+	var currentUser = Meteor.userId();
+
+	self.subscribe('Games');
+    self.subscribe('userSessions', currentUser);
+	
 });
 
 Template.Sessions.onRendered(function () {
 	var selfVariable = this;
-	$('#datepicker').datepicker({
-		clearBtn: true,
-		autoclose: true,
-		toggleActive:true,
-		todayHighlight: true
-	}).on('changeDate', function(e, tmpl){
-		var selectedDate = $('#datepicker').datepicker('getFormattedDate');
-		var unformattedDate = $('#datepicker').datepicker('getDate');
-		var currentDate = selfVariable.selectedDate.get();
-		if (currentDate === unformattedDate){
-			selfVariable.selectedDate.set(false);
-		} else {
-			selfVariable.selectedDate.set(unformattedDate);
-		}
-		
-		$('#datepicker').attr('data-date', selectedDate);
-	})
+	
+	setTimeout(function(){
+
+		$('#datepicker').datepicker({
+			autoclose: true,
+			toggleActive:true,
+			todayHighlight: true
+		}).on('changeDate', function(e, tmpl){
+			var selectedDate = $('#datepicker').datepicker('getFormattedDate');
+			var unformattedDate = $('#datepicker').datepicker('getDate');
+			var currentDate = selfVariable.selectedDate.get();
+			if (currentDate === unformattedDate){
+				selfVariable.selectedDate.set(false);
+			} else {
+				selfVariable.selectedDate.set(unformattedDate);
+			}
+			
+			$('#datepicker').attr('data-date', selectedDate);
+		})
+	}, 500);
+	
+	
 	//$('#textfield').datepicker();
 });
 

@@ -40,7 +40,7 @@ Template.Profile.helpers({
 /* Profile: Lifecycle Hooks */
 /*****************************************************************************/
 Template.Profile.onCreated(function () {
-	this.profilePage = new ReactiveVar('stats');
+	this.profilePage = new ReactiveVar('sessions');
 });
 
 Template.Profile.onRendered(function () {
@@ -52,30 +52,41 @@ Template.Profile.onRendered(function () {
 		var selfVar = this;
 		var hammertime = new Hammer(profileStage);
 
-		hammertime.on('swipe', function(e){
+		hammertime.on('panstart', function(e){
+			console.log(e);
+		});	
+
+		hammertime.on('pan', function(e){
 			var direction = e.direction;
+			var deltaX = e.deltaX;
+			var distance = e.distance;
+			var velocity = Math.abs(e.velocityX);
 
 			var profilePage = selfVar.profilePage.get();
 			if (profilePage === 'stats'){
-				if (direction === 2){
+				if (direction === 2 && (distance > 220 || velocity > 1)){
 					selfVar.profilePage.set('expenses');
-				} else if (direction === 4){
+				} else if (direction === 4 && (distance > 220 || velocity > 1)){
 					selfVar.profilePage.set('sessions');
 				}
 			} else if (profilePage === 'sessions'){
-				if (direction === 2){
+				//$('.sessions .container.col-xs-12')[0].style.transform = 'translate(' + deltaX/5 + 'px)';
+				if (direction === 2  && (distance > 220 || velocity > 1)){
 					selfVar.profilePage.set('stats');
-				} else if (direction === 4){
+				} else if (direction === 4  && (distance > 220 || velocity > 1)){
 					selfVar.profilePage.set('expenses');
 				}
 			} else if (profilePage === 'expenses'){
-				if (direction === 2){
+				if (direction === 2 && (distance > 220 || velocity > 1)){
 					selfVar.profilePage.set('sessions');
-				} else if (direction === 4){
+				} else if (direction === 4 && (distance > 220 || velocity > 1)){
 					selfVar.profilePage.set('stats');
 				}
 			}
 		});
+		hammertime.on('panend', function(e){
+			$('.sessions .container.col-xs-12')[0].style.transform = '';
+		})
 
 		hammertime.on('press', function(e){
 			var direction = e.direction;

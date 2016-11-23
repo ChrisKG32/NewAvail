@@ -2,24 +2,7 @@
 /* NewExpense: Style */
 /*****************************************************************************/
 .new-expense {
-
-
 	height: calc(100% - 56px);
-
-	/*
-	background-color: black;
-
-	input, select, .input-group-addon {
-		background-color: rgb(30,30,30);
-		border-color: rgb(50,50,50);
-		color: rgb(100,100,100);
-	}
-	
-	.input-group-btn span {
-		background-color: rgb(100,100,100);
-		border-color: rgb(120,120,120);
-	}
-	*/
 
 	.no-gutter {
 		padding: 0;
@@ -51,12 +34,7 @@
 	    width: 100%;
 	    max-height: 150px;
 	}
-}
-
-/*
-.datepicker-dropdown {
-		background-color: rgb(50,50,50) !important;
-		color: white;
-		border-color: rgb(80,80,80);
+	input.warning {
+		border-color: #a94442;
 	}
-*/
+}

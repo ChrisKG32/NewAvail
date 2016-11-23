@@ -14,14 +14,16 @@ Template.Play.events({
 		
 	},
 	'click .begin':function(e, tmpl){
+		var currentUser = Meteor.userId();
 		var incompleteSession = Sessions.findOne({$and: [
+				{createdBy: currentUser},
 				{createdAt: {$exists: true}},
 				{completedAt: {$exists: true}},
 				{bought: {$exists: false}}
 			]
 		});
 		if (!incompleteSession){
-			var currentUser = Meteor.userId();
+			
 			var data = {
 				createdBy: currentUser,
 				createdAt: new Date()
@@ -85,7 +87,9 @@ Template.Play.events({
 		}
 	},
 	'click .remove-session':function(e, tmpl){
+		var currentUser = Meteor.userId();
 		var incompleteSession = Sessions.findOne({$and: [
+				{createdBy: currentUser},
 				{createdAt: {$exists: true}},
 				{completedAt: {$exists: true}},
 				{bought: {$exists: false}}
@@ -101,7 +105,9 @@ Template.Play.events({
 		tmpl.currentSession.set(false);
 	},
 	'click .update-session':function(e, tmpl){
+		var currentUser = Meteor.userId();
 		var incompleteSession = Sessions.findOne({$and: [
+				{createdBy: currentUser},
 				{createdAt: {$exists: true}},
 				{completedAt: {$exists: true}},
 				{bought: {$exists: false}}
@@ -115,8 +121,12 @@ Template.Play.events({
 /* Play: Helpers */
 /*****************************************************************************/
 Template.Play.helpers({
+	/*
 	display:function(param1){
+		
+		var currentUser = Meteor.userId();
 		var incompleteSession = Sessions.findOne({$and: [
+				{createdBy: currentUser},
 				{createdAt: {$exists: true}},
 				{completedAt: {$exists: true}},
 				{bought: {$exists: false}}
@@ -134,6 +144,7 @@ Template.Play.helpers({
 			} else {
 				var active = Sessions.findOne({ $and: 
 					[
+						{createdBy: currentUser},
 						{createdAt: {$exists: true}}, 
 						{completedAt: {$exists: false}}
 					]
@@ -145,6 +156,47 @@ Template.Play.helpers({
 				}
 			}
 		}
+	},*/
+	display:function(param1){
+		var currentUser = Meteor.userId();
+		var currentSession = Template.instance().currentSession.get();
+		var incomplete = Sessions.findOne({
+			$and: [
+				{createdBy: currentUser},
+				{createdAt: {$exists: true}},
+				{completedAt: {$exists: true}},
+				{bought: {$exists: false}}
+			]
+		});
+		//No incomplete session
+		if (!incomplete){
+			var started = Sessions.findOne({
+				$and: [
+					{createdBy: currentUser},
+					{createdAt: {$exists: true}},
+					{completedAt: {$exists: false}}
+				]
+			});
+			if (!started && (param1 === 'play')) {
+				return true
+			} else if (started && (param1 === 'stop')){
+				return true
+			} else {
+				return false
+			}
+		} else if (currentSession){
+			if (incomplete && (param1 === 'details')){
+				return true
+			} else {
+				return false
+			}
+		} else if (!currentSession) {
+			if (incomplete && (param1 === 'error')){
+				return true
+			} else {
+				return false
+			}
+		}		
 	}
 });
 

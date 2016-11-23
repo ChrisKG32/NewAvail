@@ -2,6 +2,17 @@
 /* NewExpense: Event Handlers */
 /*****************************************************************************/
 Template.NewExpense.events({
+  'blur input':function(e){
+    var currentTarget = $(e.currentTarget);
+    var inputValue = currentTarget.val();
+    console.log(inputValue.length);
+    if (inputValue.length === 0){
+      currentTarget.addClass('warning');
+    } else {
+      currentTarget.removeClass('warning');
+    }
+    
+  },
   'click input[type="file"]':function(e){
     e.preventDefault();
     if (Meteor.isCordova){
@@ -39,54 +50,52 @@ Template.NewExpense.events({
 		var displayPath = $('#display-path').val();
 		var imgURL = '';
 
-		if (dataURI){
-      /*
-			//var files = $('input#imgInp')[0].files;
-			S3.upload({
-				files: fd,
-				path: '/'
-			}, function(e, r){
-				console.log(r);
+    if (datepicker && method && amount && type) {
+  		if (dataURI){
+        /*
+  			//var files = $('input#imgInp')[0].files;
+  			S3.upload({
+  				files: fd,
+  				path: '/'
+  			}, function(e, r){
+  				console.log(r);
 
-			});
-      */
-      var data = {
-          createdAt: new Date(),
-          expenseDate: new Date(datepicker.replace(/\//g, '-')),
-          createdBy: currentUser,
-          date: datepicker,
-          method: method,
-          amount: amount,
-          type: type,
-          comments: comments,
-          fileName: displayPath,
-          img: dataURI
-        }
+  			});
+        */
+        var data = {
+            createdAt: new Date(),
+            expenseDate: new Date(datepicker.replace(/\//g, '-')),
+            createdBy: currentUser,
+            date: datepicker,
+            method: method,
+            amount: amount,
+            type: type,
+            comments: comments,
+            fileName: displayPath,
+            img: dataURI
+          }
 
-
-        Meteor.call('newExpense', data, function(){
-          console.log('Logged Expense Successfully');
-        });
-
-		} else {
-			var data = {
-					createdAt: new Date(),
-					expenseDate: new Date(datepicker.replace(/\//g, '-')),
-					createdBy: currentUser,
-					date: datepicker,
-					method: method,
-					amount: amount,
-					type: type,
-					comments: comments,
-					fileName: displayPath,
-					img: ''
-				}
-
-
-				Meteor.call('newExpense', data, function(){
-					console.log('Logged Expense Successfully');
-				});
-		}
+  		} else {
+  			var data = {
+  					createdAt: new Date(),
+  					expenseDate: new Date(datepicker.replace(/\//g, '-')),
+  					createdBy: currentUser,
+  					date: datepicker,
+  					method: method,
+  					amount: amount,
+  					type: type,
+  					comments: comments,
+  					fileName: displayPath,
+  					img: ''
+  				}
+  		}
+      Meteor.call('newExpense', data, function(){
+        console.log('Logged Expense Successfully');
+      });
+    } else {
+      //$('#datepicker, #method, #expense-amount, #type').css('border-color', 'red');
+      alert('Fill out all required fields before submitting')
+    }
 		
 
 

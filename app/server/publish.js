@@ -14,6 +14,10 @@ Meteor.publish('userSessions', function(currentUser){
 	return Sessions.find({createdBy: currentUser});
 });
 
+Meteor.publish('allSessions', function(){
+	return Sessions.find();
+});
+
 Meteor.publish('userExpenses', function(currentUser){
 	return Expenses.find({createdBy: currentUser});
 });
