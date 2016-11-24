@@ -6,21 +6,23 @@ template(name='EditExpense')
 				i.fa.fa-calendar
 		.amount
 			.form-group.col-xs-5.no-gutter
-				select.form-control(id="method" value="!{this.method}" disabled)
+				select.form-control(id="method" value="!{this.method}" disabled hidden-value="!{this.method}")
 					option
 						| Cash
 					option
-						| Other
+						| Card
+					option
+						| Comps
 			.form-group.col-xs-5.col-xs-offset-2.no-gutter
-				input.form-control(type="number" id="expense-amount" placeholder="Amount" value="!{this.amount}" disabled)
+				input.form-control(type="number" id="expense-amount" placeholder="Amount" value="!{this.amount}" expense-id="!{this._id}" disabled)
 			.form-group.col-xs-12.no-gutter
-				select.form-control(id="type" value="!{this.type}" disabled)
+				select.form-control(id="type" value="!{this.type}" disabled hidden-value="!{this.type}")
 					option
-						| Travel
+						| Lodging
 					option
-						| Food
+						| Gas & Travel
 					option
-						| Other
+						| Food & Snacks
 			.form-group.col-xs-12.no-gutter
 				input.form-control(type="text" placeholder="Comments" id="comments" value="!{this.comments}" disabled)
 			.form-group

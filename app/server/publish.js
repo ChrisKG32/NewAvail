@@ -22,6 +22,10 @@ Meteor.publish('userExpenses', function(currentUser){
 	return Expenses.find({createdBy: currentUser});
 });
 
+Meteor.publish('allExpenses', function(){
+	return Expenses.find();
+});
+
 Meteor.publish('Notifications', function(){
 	return Notifications.find();
 });

@@ -9,11 +9,10 @@ Template.Settings.events({
 			tmpl.selectedGame.set(this._id);
 		} else if (currentTarget.hasClass('edit-invest')){
 			tmpl.selectedInvestment.set(this._id);
+		} else if (currentTarget.hasClass('edit-notification')){
+			tmpl.notificationType.set(this.type);
+			tmpl.selectedNotification.set(this._id);
 		}
-
-		
-
-
 
 	},
 	'click .cancel':function(e, tmpl){
@@ -44,6 +43,9 @@ Template.Settings.events({
 	},
 	'click .cancel-password-change':function(e, tmpl){
 		tmpl.changePassword.set(false);
+	},
+	'click #cancel-edit':function(e, tmpl){
+		tmpl.selectedNotification.set(false);
 	}
 });
 
@@ -128,7 +130,78 @@ Template.Settings.helpers({
 		}
 	},
 	notifications:function(){
-		return false
+		var currentUser = Meteor.userId();
+		var userAccount = Meteor.users.findOne(currentUser);
+		if (userAccount && userAccount.username === 'test'){
+
+			var sessionEdits = Sessions.find({edits: {$exists: true}}).fetch();
+			var expenseEdits = Expenses.find({edits: {$exists: true}}).fetch();
+			var mergedArray = [];
+			mergedArray = mergedArray.concat(sessionEdits);
+			mergedArray = mergedArray.concat(expenseEdits);
+			_.each(mergedArray, function(entry){
+				var userId = entry.createdBy;
+				var username = Meteor.users.findOne(userId);
+				if (entry.bought){
+					entry.type = 'Session';
+				} else if (entry.expenseDate){
+					entry.type = 'Expense';
+				}
+				entry.date = (entry.createdAt.getMonth() + 1) + '/' + entry.createdAt.getDate() + '/' + Number(entry.createdAt.getFullYear().toString().substr(2,4));
+				entry.username = username.username;
+			});
+
+			mergedArray.sort(function(a,b){
+				// Turn your strings into dates, and then subtract them
+				// to get a value that is either negative, positive, or zero.
+				return new Date(b.createdAt) - new Date(a.createdAt);
+			});
+
+			return mergedArray
+		} else {
+			return false
+		}
+	},
+	selectedExpense:function(){
+		var selectedNotification = Template.instance().selectedNotification.get();
+		if (selectedNotification){
+			var expenseCol = Expenses.findOne({_id: selectedNotification});
+			return expenseCol
+		} else {
+			return false
+		}
+
+
+
+	},
+	selectedSession:function(){
+		var selectedNotification = Template.instance().selectedNotification.get();
+		if (selectedNotification){
+			var sessionCol = Sessions.findOne({_id: selectedNotification});
+		}
+
+		if (sessionCol){
+			var date = ((sessionCol.createdAt).getDate()).toString();
+			var month = ((sessionCol.createdAt).getMonth() + 1).toString();
+			if (date.length < 2){
+				date = '0' + date;
+			}
+			if (month.length < 2){
+				month = '0' + month;
+			}
+			
+			var year = (((sessionCol.createdAt).getFullYear()).toString()).substr(2,2);
+			sessionCol.date = month + '/' + date + '/' + year;
+			sessionCol.duration = Math.round((sessionCol.completedAt - sessionCol.createdAt)/3600000).toFixed(2);
+
+			var game = Games.findOne({_id: sessionCol.game});
+			sessionCol.gameName = game.name;
+			sessionCol.variant = game.variant;
+
+			return sessionCol
+		} else {
+			return false
+		}
 	}
 });
 
@@ -139,6 +212,12 @@ Template.Settings.onCreated(function () {
 	this.selectedGame = new ReactiveVar(false);
 	this.selectedInvestment = new ReactiveVar(false);
 	this.changePassword = new ReactiveVar(false);
+	this.notificationType = new ReactiveVar(false);
+	this.selectedNotification = new ReactiveVar(false);
+
+	var self = this;
+	self.subscribe('allSessions');
+	self.subscribe('allExpenses');
 });
 
 Template.Settings.onRendered(function () {

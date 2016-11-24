@@ -132,7 +132,8 @@ Template.Sessions.helpers({
 			
 			var year = (((editSession.createdAt).getFullYear()).toString()).substr(2,2);
 			editSession.date = month + '/' + date + '/' + year;
-			editSession.duration = Math.round((editSession.completedAt - editSession.createdAt)/3600000).toFixed(2);
+			editSession.realDuration = Math.round((editSession.completedAt - editSession.createdAt)/3600000);
+			editSession.duration = editSession.realDuration.toFixed(2);
 
 			var game = Games.findOne({_id: editSession.game});
 			editSession.gameName = game.name;

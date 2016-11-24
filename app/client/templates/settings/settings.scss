@@ -9,6 +9,9 @@
 		text-align: center;
 		
 		h4 {
+			padding-top: 10px;
+			padding-bottom: 10px;
+			font-size: 150%;
 			text-align: start;
 			border-bottom: 1px solid #eee;
 		}
@@ -20,11 +23,17 @@
 		padding-bottom: 50px;
 		
 		h4 {
+			padding-top: 10px;
+			padding-bottom: 10px;
+			font-size: 150%;
 			text-align: start;
 			border-bottom: 1px solid #eee;
 		}
 	}
 	.password-change-wrapper {
 		margin-bottom: 25px;
+	}
+	.input-group.date {
+		margin-top: 25px;
 	}
 }

@@ -52,10 +52,6 @@ Template.Profile.onRendered(function () {
 		var selfVar = this;
 		var hammertime = new Hammer(profileStage);
 
-		hammertime.on('panstart', function(e){
-			console.log(e);
-		});	
-
 		hammertime.on('pan', function(e){
 			var direction = e.direction;
 			var deltaX = e.deltaX;
@@ -84,9 +80,6 @@ Template.Profile.onRendered(function () {
 				}
 			}
 		});
-		hammertime.on('panend', function(e){
-			$('.sessions .container.col-xs-12')[0].style.transform = '';
-		})
 
 		hammertime.on('press', function(e){
 			var direction = e.direction;
@@ -96,7 +89,14 @@ Template.Profile.onRendered(function () {
 			if ((profilePage === 'sessions') || (profilePage === 'expenses')){
 				var target = $(e.target);
 				if (target.hasClass('form-control')){
-					target.removeProp('disabled');
+					if (target.is('#game-name') || 
+						target.is('#game-variant') || 
+						target.is('#game-date')){
+
+					} else {
+						target.removeProp('disabled');
+					}
+					
 				}
 			}
 			

@@ -29,7 +29,6 @@ Template.NewInvestment.events({
 			editData.editedAt = new Date();
 		}
 		
-
 		if (!investCol){
 			Meteor.call('newInvestment', data, function(r){
 				console.log('Added investment successfully');
@@ -37,28 +36,21 @@ Template.NewInvestment.events({
 				$('#invest-amt').val('');
 				$('#invest-date').val('');
 			});
-
 			console.log('Successfully added investment for ' + profileUsername);
-
 		} else {
 			var answer = confirm('Do you want to change this investment?');
-
 			if (answer){
-
 				var existingInvestment = investCol;
-
-
 				Meteor.call('editInvestment', data, existingInvestment, editData, function(){
 					console.log('Successfully edited existing investment');
 				});
-
 			} else {
 				console.log('Investment not changed.');
 			}
 		}
 	},
 	'click .cancel-invest':function(e){
-		Router.go('settings');
+		Router.go('Settings');
 	}
 });
 

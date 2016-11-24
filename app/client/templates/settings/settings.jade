@@ -1,100 +1,113 @@
 template(name='Settings')
-	.settings.col-xs-12
-		if selectedGame
-			with selectedGame
-				+AddGame
-		else if selectedInvest
-			with selectedInvest
-				+NewInvestment
-		else
-			h3.text-center
-				span.glyphicon.glyphicon-cog
-				| Settings
-			.account-settings
-				h4.header
-					| Account
-					span.pull-right.fa.fa-plus
-				.section-wrapper.hidden
-					unless changePassword
-						button.btn.btn-default.cp
-							| Change Password
-					else changePassword
-						+ChangePassword
-			.admin-controls
-				if allInvestments
-					.all-investments
-						h4.header
-							| Investments
-							span.pull-right.fa.fa-plus
-						.section-wrapper.hidden
-							if admin
-								a.btn.btn-default(href="{{pathFor route='NewInvestment'}}")
-									| New Investment
-							table.table.table-striped.investment-table
-								thead
-									tr
-										th.text-center
-											| Date
-										th.text-center
-											| Amount
-										th.text-center
-											| Edit
-								tbody
-									each allInvestments
+	if Template.subscriptionsReady
+		.settings.col-xs-12
+			if selectedGame
+				with selectedGame
+					+AddGame
+			else if selectedInvest
+				with selectedInvest
+					+NewInvestment
+			else if selectedSession
+				with selectedSession
+					+EditSession
+			else if selectedExpense
+				with selectedExpense
+					+EditExpense
+			else
+				h3.text-center
+					span.glyphicon.glyphicon-cog
+					| Settings
+				.account-settings
+					h4.header
+						| Account
+						span.pull-right.fa.fa-plus
+					.section-wrapper.hidden
+						unless changePassword
+							button.btn.btn-default.cp
+								| Change Password
+						else changePassword
+							+ChangePassword
+				.admin-controls
+					if allInvestments
+						.all-investments
+							h4.header
+								| Investments
+								span.pull-right.fa.fa-plus
+							.section-wrapper.hidden
+								if admin
+									a.btn.btn-default(href="{{pathFor route='NewInvestment'}}")
+										| New Investment
+								table.table.table-striped.investment-table
+									thead
 										tr
-											td
-												| !{this.valid}
-											td
-												| !{this.amount}
-											td.edit.edit-invest
-												span.fa.fa-edit
-				if gamesList
-					.games-list
-						h4.header
-							| Games
-							span.pull-right.fa.fa-plus
-						.section-wrapper.hidden
-							a.btn.btn-default(href="{{pathFor route='AddGame'}}")
-								| New Game
-							table.table.table-striped.games-table
-								thead
-									tr
-										th.text-center
-											| Name
-										th.text-center
-											| Variant
-										th.text-center
-											| Edit
-								tbody
-									each gamesList
+											th.text-center
+												| Date
+											th.text-center
+												| Amount
+											th.text-center
+												| Edit
+									tbody
+										each allInvestments
+											tr
+												td
+													| !{this.valid}
+												td
+													| !{this.amount}
+												td.edit.edit-invest
+													span.fa.fa-edit
+					if gamesList
+						.games-list
+							h4.header
+								| Games
+								span.pull-right.fa.fa-plus
+							.section-wrapper.hidden
+								a.btn.btn-default(href="{{pathFor route='AddGame'}}")
+									| New Game
+								table.table.table-striped.games-table
+									thead
 										tr
-											td
-												| !{this.name}
-											td
-												| !{this.variant}
-											td.edit.edit-game
-												span.fa.fa-edit
-				if notifications
-					.notifications
-						h4
-							| Notifications
-							span.pull-right.fa.fa-plus
-						.section-wrapper.hidden
-							table.table-striped.notifications-table
-								thead
-									tr
-										th.text-center
-											| Name
-										th.text-center
-											| Variant
-										th.text-center
-											| Edit
-								tbody
-									each notifications
+											th.text-center
+												| Name
+											th.text-center
+												| Variant
+											th.text-center
+												| Edit
+									tbody
+										each gamesList
+											tr
+												td
+													| !{this.name}
+												td
+													| !{this.variant}
+												td.edit.edit-game
+													span.fa.fa-edit
+					if notifications
+						.notifications
+							h4.header
+								| Notifications
+								span.pull-right.fa.fa-plus
+							.section-wrapper.hidden
+								table.table.table-striped.notifications-table
+									thead
 										tr
-											td
-												| !{this.name}
-											td
-												| !{this.variant}
-											td.edit.edit-game
-												span.fa.fa-edit
+											th.text-center
+												| User
+											th.text-center
+												| Date
+											th.text-center
+												| Type
+											th.text-center
+												| Edit
+									tbody
+										each notifications
+											tr
+												td
+													| !{this.username}
+												td
+													| !{this.date}
+												td
+													| !{this.type}
+												td.edit.edit-notification
+													span.fa.fa-edit
+	else
+		+Loading

@@ -96,9 +96,40 @@ Meteor.methods({
                     });
     // server method logic
   },
+  'editSession':function(data, sessionCol, editData){
+        delete data.createdAt;
+        delete data.createdBy;
+        delete data._id;
+
+        var colId = editData._id;
+        if (sessionCol && !sessionCol.edits){
+            sessionCol.edits = [];
+        } 
+        sessionCol.edits.push(editData);
+        data.edits = sessionCol.edits;
+
+        Sessions.update({_id: colId}, {$set: data});
+  },
   'newExpense':function(data){
 
     Expenses.insert(data);
+  },
+  'editExpense':function(data2, selectedExpense, editData){
+        
+
+        delete data2.createdAt;
+        delete data2.createdBy;
+        delete data2._id;
+
+        var colId = editData._id;
+        if (selectedExpense && !selectedExpense.edits){
+            selectedExpense.edits = [];
+        } 
+        selectedExpense.edits.push(editData);
+        data2.edits = selectedExpense.edits;
+
+        Expenses.update({_id: colId}, {$set: data2});
+
   },
   'createAccount':function(data){
     Accounts.createUser({
