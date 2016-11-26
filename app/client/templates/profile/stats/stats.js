@@ -131,11 +131,6 @@ Template.Stats.helpers({
 	},
 	playerNames:function(){
 		var playerList = Players.find().fetch();
-		_.each(playerList, function(entry){
-			var userId = entry.userId;
-			var userProfile = Meteor.users.findOne(userId);
-			entry.username = userProfile && userProfile.username
-		});
 
 		return playerList
 	}

@@ -135,13 +135,6 @@ Meteor.methods({
     Accounts.createUser({
         username: data.username,
         password: data.password          
-    }, function(error){
-
-        if(error){
-            console.log(error.reason);
-        } else {
-            Router.go('home');
-        }
     });
   },
   'newInvestment':function(data){
@@ -171,7 +164,7 @@ Meteor.methods({
     });
   },
   'passChange':function(data){
-
+/*
     if (data.password1 === data.password2) {
 
         if (data.confirmPassword1 === data.confirmPassword2) {
@@ -182,13 +175,9 @@ Meteor.methods({
             console.log(oldPassword);
             console.log(newPassword);
 
-            /*
-            Accounts.changePassword(oldPassword, newPassword, function(error){
-                if (error){
-                    console.log('Password change not completed');
-                }
-            })
-            */
+            
+            
+            
 
         } else {
             console.log('Passwords do not match');
@@ -196,7 +185,7 @@ Meteor.methods({
 
     } else {
         console.log('Passwords do not match');
-    }
+    }*/
 
 
   }

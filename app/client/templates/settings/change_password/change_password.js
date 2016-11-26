@@ -15,19 +15,25 @@ Template.ChangePassword.events({
 			confirmPassword2: confirmPassword2
 		}
 
-		var confirmTest = confirm('Do you want to permanently change your password?');
-
-		if (confirmTest) {
-			Meteor.call('passChange', data, function(){
-				console.log('Password change completed');
-				$('#password1').val('');
-				$('#password2').val('');
-				$('#new-password1').val('');
-				$('#new-password2').val('');
-
-			});
+		if ((password1 === password2) && (confirmPassword1 === confirmPassword2)){
+			var confirmTest = confirm('Do you want to permanently change your password?');
+			if (confirmTest) {
+				Accounts.changePassword(data.password2, data.confirmPassword2, function(error){
+	                if (error){
+	                    console.log('Password change not completed');
+	                } else {
+		                $('#password1').val('');
+						$('#password2').val('');
+						$('#new-password1').val('');
+						$('#new-password2').val('');
+					}
+	            })
+				//Meteor.call('passChange', oldPass, newPass);
+			} else {
+				console.log('Password not changed.');
+			}
 		} else {
-			console.log('Password not changed.');
+			alert('Passwords do not match');
 		}
 	}
 });

@@ -131,8 +131,8 @@ Template.Settings.helpers({
 	},
 	notifications:function(){
 		var currentUser = Meteor.userId();
-		var userAccount = Meteor.users.findOne(currentUser);
-		if (userAccount && userAccount.username === 'test'){
+		var userAccount = Players.findOne({userId: currentUser});
+		if (userAccount && userAccount.admin){
 
 			var sessionEdits = Sessions.find({edits: {$exists: true}}).fetch();
 			var expenseEdits = Expenses.find({edits: {$exists: true}}).fetch();

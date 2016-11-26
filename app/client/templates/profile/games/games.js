@@ -70,7 +70,7 @@ Template.Games.helpers({
 /*****************************************************************************/
 Template.Games.onCreated(function () {
 
-	this.selectedGame = new ReactiveVar('mississippi stud');
+	this.selectedGame = new ReactiveVar('ms');
 });
 
 Template.Games.onRendered(function () {

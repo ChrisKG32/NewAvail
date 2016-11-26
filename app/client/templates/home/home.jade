@@ -1,3 +1,4 @@
 template(name='Home')
 	.home
-		+Login
+		unless currentUser
+			+Login

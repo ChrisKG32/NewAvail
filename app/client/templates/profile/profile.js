@@ -52,7 +52,7 @@ Template.Profile.onRendered(function () {
 		var selfVar = this;
 		var hammertime = new Hammer(profileStage);
 
-		hammertime.on('pan', function(e){
+		hammertime.on('swipe', function(e){
 			var direction = e.direction;
 			var deltaX = e.deltaX;
 			var distance = e.distance;
@@ -66,7 +66,6 @@ Template.Profile.onRendered(function () {
 					selfVar.profilePage.set('sessions');
 				}
 			} else if (profilePage === 'sessions'){
-				//$('.sessions .container.col-xs-12')[0].style.transform = 'translate(' + deltaX/5 + 'px)';
 				if (direction === 2  && (distance > 220 || velocity > 1)){
 					selfVar.profilePage.set('stats');
 				} else if (direction === 4  && (distance > 220 || velocity > 1)){

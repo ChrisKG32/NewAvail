@@ -45,7 +45,7 @@ Template.Login.events({
 		var username = $('#username').val();
 		var password = $('#password').val();
 		var confirmPassword = $('#confirm-password').val();
-		var duplicateUser = Meteor.users.findOne({'username': username});
+		var duplicateUser = Meteor.users.findOne({username: username});
 
 		var data = {
 			username: username,
@@ -59,17 +59,16 @@ Template.Login.events({
 				alert('Password Mismatch');
 			} else {
 				
-				Meteor.call('createAccount', data, function(){
-					console.log('successfully created account');
-					
-					var account = Users.findOne({username: data.username})._id;
-					Players.insert({
-						userId: account,
-						player: true,
-						investor: false
-					})
-				});
+				Meteor.call('createAccount', data);
 			}
+			/*
+				Players.insert({
+					userId: account,
+					player: true,
+					investor: false
+				})
+				*/
+			
 		} else {
 			console.log('User already exists');
 		}

@@ -91,6 +91,7 @@ Template.NewExpense.events({
   		}
       Meteor.call('newExpense', data, function(){
         console.log('Logged Expense Successfully');
+        Router.go('Profile');
       });
     } else {
       //$('#datepicker, #method, #expense-amount, #type').css('border-color', 'red');
@@ -128,7 +129,9 @@ Template.NewExpense.onRendered(function () {
     
 
 	$('.input-group.date').datepicker({
-	    autoclose: true
+	    autoclose: true,
+      todayHighlight: true,
+      toggleActive:true,
 	});
 
 	function readURL(input) {
