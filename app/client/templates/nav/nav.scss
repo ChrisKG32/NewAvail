@@ -27,9 +27,14 @@
 		width: 100%;
 		border-color: #e7e7e7;
 		li {
+			padding-left: 0;
 			font-size: 125%;
+			span {
+				text-align: center;
+			}
 			a {
 				padding: 15px;
+				padding-left: 0;
 			}
 		}
 	}

@@ -9,7 +9,7 @@ template(name='Profile')
 		.col-xs-4
 			h4.expenses.text-center(class="{{activeTab 'expenses'}}")
 				| Expenses
-		.navigator
+		.navigator(id="navigator")
 			if profilePage 'sessions'
 				+Sessions
 			else if profilePage 'stats'

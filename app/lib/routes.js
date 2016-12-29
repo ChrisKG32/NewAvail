@@ -42,6 +42,8 @@ Router.route('/play', {
   waitOn:function(){
     var currentUser = Meteor.userId();
     return [
+      Meteor.subscribe('dealerList'),
+      Meteor.subscribe('casinoList'),
       Meteor.subscribe('userSessions', currentUser),
       Meteor.subscribe('Games')
     ]
@@ -154,5 +156,27 @@ Router.route('/new-investment', {
     } else {
       this.render('Login');
     }
+  }
+});
+
+Router.route('/dealers', {
+  name: 'Dealers',
+  template: 'Dealers',
+  controller: 'HomeController',
+  where: 'client',
+  onBeforeAction: function () {
+    var currentUser = Meteor.userId();
+    if (currentUser){
+      this.next();
+    } else {
+      this.render('Login');
+    }
+  },
+  waitOn:function(){
+    return [
+      Meteor.subscribe('allSessions'),
+      Meteor.subscribe('dealerList'),
+      Meteor.subscribe('casinoList')
+    ]
   }
 });

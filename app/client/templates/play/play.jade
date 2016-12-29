@@ -11,6 +11,23 @@ template(name='Play')
 				.inputs.col-xs-10.col-xs-offset-1
 					.form-group
 						input.form-control(id="denom" type="number" placeholder="denomination")
+					if advancedAccount
+						.form-group
+							select.form-control(id="casino-name")
+								option
+									| (Select One)
+								each casinoList
+									option
+										!{name}
+							span.fa.fa-plus.new-casino
+						.form-group
+							select.form-control(id="dealer-name")
+								option
+									| (Select One)
+								each dealerList
+									option
+										!{name}
+							span.fa.fa-plus.new-dealer
 			.buttons.col-xs-12
 				button.btn.btn-default.cancel.col-xs-5
 					| Cancel

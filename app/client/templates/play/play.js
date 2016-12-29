@@ -2,6 +2,65 @@
 /* Play: Event Handlers */
 /*****************************************************************************/
 Template.Play.events({
+	'click .new-casino':function(e, tmpl){
+		var inputValue = prompt('Enter casino name');
+		if (inputValue) {
+			const conflict = Casinos.findOne({name: {$regex: inputValue, $options: 'i'}});
+			if (!conflict){
+				Meteor.call('newCasino', inputValue, function(e, r){
+					if (e){
+						alert('error');
+					} else {
+						console.log('successfully added new casino');
+						$('#casino-name').val(inputValue);
+						tmpl.selectedCasino.set(inputValue);
+					}
+				});
+			} else {
+				console.log('Casino already exists');
+			}
+		}
+	},
+	'click .new-dealer':function(e, tmpl){
+		
+		var casinoName = tmpl.selectedCasino.get();
+		if (!casinoName) {
+			alert('Enter casino name first');
+		} else {
+			var inputValue = prompt('Enter dealer name');
+
+			if (inputValue){
+
+				var data = {name: inputValue, casino: casinoName};
+				const conflict = Dealers.findOne({name: {$regex: inputValue, $options: 'i'}, casino: {$regex: casinoName, $options: 'i'}});
+				if (!conflict){
+					Meteor.call('newDealer', data, function(e, r){
+						if (e){
+							alert('error');
+						} else {
+							console.log('successfully added new dealer');
+							var bestSeat = prompt('Enter best seat');
+							if (bestSeat){
+								var dealerData = {name: inputValue, casino: casinoName, seat: bestSeat};
+								Meteor.call('dealerSeat', dealerData, function(error, result){
+									if (error){
+										alert('error');
+									} else {
+										console.log('successfully updated dealer seat');
+									}
+								});
+							}
+						}
+					});
+				} else {
+					console.log('Dealer already exists');
+				}
+			}
+		}
+	},
+	'change #casino-name':function(e, tmpl){
+		tmpl.selectedCasino.set($(e.currentTarget).val());
+	},
 	'blur .inputs input':function(e){
 		var currentTarget = $(e.currentTarget);
 		var inputValue = currentTarget.val();
@@ -64,9 +123,10 @@ Template.Play.events({
 		var gameName = $('#game-name').val().toLowerCase();
 		var gameVariant = $('#game-variant').val().toLowerCase();
 		var currentSession = tmpl.currentSession.get();
+		var dealerName = $('#dealer-name').val().toLowerCase();
+		var casinoName = $('#casino-name').val();
 		if (!bought || !colored || !denomination || !gameName || !gameVariant){
 			alert('Fill all empty fields');
-			$('')
 		} else {
 			var data = {
 				_id: currentSession._id,
@@ -75,6 +135,12 @@ Template.Play.events({
 				denomination: denomination,
 				name: gameName,
 				variant: gameVariant
+			}
+			if (dealerName) {
+				data.casino = casinoName;
+				data.dealer = dealerName;
+			} else if (casinoName && !dealerName){
+				data.casino = casinoName;
 			}
 			Meteor.call('sessionDetails', data, function(error, result){
 				if (error){
@@ -197,6 +263,20 @@ Template.Play.helpers({
 				return false
 			}
 		}		
+	},
+	casinoList:function(){
+		return Casinos.find({})
+	},
+	dealerList:function(){
+		var selectedCasino = Template.instance().selectedCasino.get();
+		if (selectedCasino){
+			return Dealers.find({casino: selectedCasino});
+		} else {
+			return []
+		}
+	},
+	advancedAccount:function(){
+		return true
 	}
 });
 
@@ -205,6 +285,7 @@ Template.Play.helpers({
 /*****************************************************************************/
 Template.Play.onCreated(function () {
 	this.currentSession = new ReactiveVar(false);
+	this.selectedCasino = new ReactiveVar(false);
 });
 
 Template.Play.onRendered(function () {

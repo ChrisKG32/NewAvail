@@ -23,7 +23,7 @@ Template.Nav.events({
 /* Nav: Helpers */
 /*****************************************************************************/
 Template.Nav.helpers({
-	investor:function(param1){
+	investorOnly:function(param1){
 		var currentUser = Meteor.userId();
 		var playerProfile = Players.findOne({userId: currentUser});
 		var investor = playerProfile && playerProfile.investor;

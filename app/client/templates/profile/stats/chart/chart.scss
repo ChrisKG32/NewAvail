@@ -1,0 +1,15 @@
+/*****************************************************************************/
+/* Chart: Style */
+/*****************************************************************************/
+
+#playingStats {
+	transform: translateZ(0);
+	padding-left: 5px;		
+	width: 95vw !important;
+	height: 55vh !important;
+	pointer-events: none !important;
+}
+.chart-container {
+	padding: 0;
+}
+

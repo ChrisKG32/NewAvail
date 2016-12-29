@@ -86,14 +86,26 @@ Meteor.methods({
     }
     var game = Games.findOne({$and: [{name: data.name}, {variant: data.variant}]});
     var gameId = game && game._id;
-    Sessions.update({_id: data._id}, {$set: 
-                        {
-                            bought: data.bought, 
-                            colored: data.colored, 
-                            denomination: data.denomination, 
-                            game: gameId
-                        }
-                    });
+    if (data.dealer) {
+        Sessions.update({_id: data._id}, {$set: 
+            {
+                bought: data.bought, 
+                colored: data.colored, 
+                denomination: data.denomination, 
+                dealer: data.dealer,
+                game: gameId
+            }
+        });
+    } else {
+        Sessions.update({_id: data._id}, {$set: 
+            {
+                bought: data.bought, 
+                colored: data.colored, 
+                denomination: data.denomination, 
+                game: gameId
+            }
+        });
+    }
     // server method logic
   },
   'editSession':function(data, sessionCol, editData){
@@ -188,6 +200,15 @@ Meteor.methods({
     }*/
 
 
+  },
+  'newCasino':function(data){
+    Casinos.insert({name: data});
+  },
+  'newDealer':function(data){
+    Dealers.insert({name: data.name, casino: data.casino});
+  },
+  'dealerSeat':function(data){
+    Dealers.update({name: data.name, casino: data.casino}, {$set: {seat: data.seat}});
   }
   
 

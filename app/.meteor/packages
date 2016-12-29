@@ -35,3 +35,5 @@ hammer:hammer@=2.0.4_1
 sacha:spin
 okland:camera-ui
 iron:router
+session
+momentjs:moment

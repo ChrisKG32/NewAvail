@@ -9,29 +9,33 @@ template(name='Nav')
 						| Avail
 				ul.nav.navbar-nav.hidden
 					if currentUser
-						unless investor
-							li
-								a.btn-resume(href="{{pathFor route='Play'}}")
-									span.glyphicon.glyphicon-play
+						unless investorOnly
+							li.col-xs-12
+								a.play(href="{{pathFor route='Play'}}")
+									span.glyphicon.glyphicon-play.col-xs-2
 									| Play
-							li
-								a.btn-resume(href="{{pathFor route='NewExpense'}}")
-									span.fa.fa-dollar
+							li.col-xs-12
+								a.new-expense(href="{{pathFor route='NewExpense'}}")
+									span.fa.fa-dollar.col-xs-2
 									| Expense
-						li
-							a.btn-resume(href="{{pathFor route='Profile'}}")
-								span.fa.fa-user
+							li.col-xs-12
+								a(href="{{pathFor route='Dealers'}}")
+									span.fa.fa-users.col-xs-2
+									| Dealers
+						li.col-xs-12
+							a(href="{{pathFor route='Profile'}}")
+								span.fa.fa-user.col-xs-2
 								| Profile
-						li
-							a.btn-resume(href="{{pathFor route='Settings'}}")
-								span.glyphicon.glyphicon-cog
+						li.col-xs-12
+							a(href="{{pathFor route='Settings'}}")
+								span.glyphicon.glyphicon-cog.col-xs-2
 								| Settings
-						li
+						li.col-xs-12
 							a.log-out
-								span.glyphicon.glyphicon-log-out
+								span.glyphicon.glyphicon-log-out.col-xs-2
 								| Log out
 					else
-						li
+						li.col-xs-12
 							a.log-in(href="{{pathFor route='Login'}}")
-								span.glyphicon.glyphicon-log-in
+								span.glyphicon.glyphicon-log-in.col-xs-2
 								| Log in

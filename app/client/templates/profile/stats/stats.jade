@@ -1,25 +1,30 @@
 template(name='Stats')
-	.stats
-		.form-group.col-xs-10.col-xs-offset-1
-			select.form-control.player-select
-				option
-					| All Players
-				each playerNames
+	if Template.subscriptionsReady
+		.stats
+			.form-group.col-xs-10.col-xs-offset-1
+				select.form-control.player-select
 					option
-						| !{this.username}
-		.form-group.col-xs-10.col-xs-offset-1
-			select.form-control.game-select
-				option
-					| All Games
-				each gameNames
+						| All Players
+					each playerNames
+						option
+							| !{this.username}
+			.form-group.col-xs-10.col-xs-offset-1
+				select.form-control.game-select
 					option
-						| !{this}
-		.game-stats.col-xs-12
-			ul
-				with stats
-					li
-						| Winnings: !{result}
-					li
-						| Hours Played: !{duration}
-		.chart-container.col-xs-12
-			canvas(id="playingStats")
+						| All Games
+					each gameNames
+						option
+							| !{this}
+			.game-stats.col-xs-12
+				ul
+					with stats
+						li
+							| Winnings: !{result}
+						li
+							| Hours Played: !{duration}
+			+Chart
+			//
+				.chart-container.col-xs-12
+					canvas(id="playingStats")
+	else
+		+Loading

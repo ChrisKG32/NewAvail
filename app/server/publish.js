@@ -30,4 +30,10 @@ Meteor.publish('Notifications', function(){
 	return Notifications.find();
 });
 
+Meteor.publish('casinoList', function(){
+	return Casinos.find();
+});
 
+Meteor.publish('dealerList', function(){
+	return Dealers.find();
+});

@@ -1,0 +1,53 @@
+/*****************************************************************************/
+/* Dealers: Style */
+/*****************************************************************************/
+.dealers {
+	.no-gutter {
+		padding: 0;
+	}
+	height: calc(100% - 56px);
+	padding-top: 15px;
+
+	span.fa-plus {
+		color: green;
+		font-size: 125%;
+		padding: 10px;
+		position: absolute;
+		right: -35px;
+		transform: translateY(-95%);
+	}
+	.table-responsive {
+
+		table {
+
+			.blank {
+				color: rgba(0,0,0,0);
+				background-color: rgba(0,0,0,0) !important;
+			}
+			height: 300px;
+			thead:first-child > tr:first-child > th:first-child {
+				position: fixed;
+				background-color: white;
+				width: 45px;
+			}
+			
+			tbody > tr > td:first-child {
+				text-align: center;
+				position:fixed;
+				width: 45px;
+				border-right: 1px solid #ddd;
+			}
+			tbody > tr:nth-child(even) > td:first-child {
+				padding-bottom: 10px;
+
+				display: block;
+				background-color: white;
+				margin-bottom: -5px !important;
+			}
+		}
+
+	}
+	.true {
+		background-color: blue;
+	}
+}

@@ -14,13 +14,7 @@
 	}
 
 
-	#playingStats {
-		transform: translateZ(0);
-		padding-left: 5px;		
-		width: 95vw !important;
-		height: 55vh !important;
-		pointer-events: none !important;
-	}
+	
 
 
 	select.game-select {
@@ -31,8 +25,5 @@
 
 	}
 	
-	.chart-container {
-		padding: 0;
-	}
-
+	
 }

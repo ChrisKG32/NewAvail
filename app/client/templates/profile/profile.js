@@ -48,7 +48,7 @@ Template.Profile.onRendered(function () {
 	
 
 	//swipe functionality
-		var profileStage = document.getElementById('profile');
+		var profileStage = document.getElementById('navigator');
 		var selfVar = this;
 		var hammertime = new Hammer(profileStage);
 
@@ -60,21 +60,21 @@ Template.Profile.onRendered(function () {
 
 			var profilePage = selfVar.profilePage.get();
 			if (profilePage === 'stats'){
-				if (direction === 2 && (distance > 220 || velocity > 1)){
+				if (direction === 2){
 					selfVar.profilePage.set('expenses');
-				} else if (direction === 4 && (distance > 220 || velocity > 1)){
+				} else if (direction === 4){
 					selfVar.profilePage.set('sessions');
 				}
 			} else if (profilePage === 'sessions'){
-				if (direction === 2  && (distance > 220 || velocity > 1)){
+				if (direction === 2){
 					selfVar.profilePage.set('stats');
-				} else if (direction === 4  && (distance > 220 || velocity > 1)){
+				} else if (direction === 4 ){
 					selfVar.profilePage.set('expenses');
 				}
 			} else if (profilePage === 'expenses'){
-				if (direction === 2 && (distance > 220 || velocity > 1)){
+				if (direction === 2){
 					selfVar.profilePage.set('sessions');
-				} else if (direction === 4 && (distance > 220 || velocity > 1)){
+				} else if (direction === 4){
 					selfVar.profilePage.set('stats');
 				}
 			}
