@@ -84,8 +84,12 @@ Template.Settings.helpers({
 		var userProfile = Players.findOne({userId: currentUser});
 		var gamesList = Games.find({},{sort: {name: 1}}).fetch();
 
-		if (userProfile && userProfile.admin && (gamesList && gamesList.length > 0)) {
-			return gamesList
+		if (userProfile && userProfile.admin) {
+			if (gamesList && gamesList.length > 0){
+				return gamesList
+			} else {
+				return []
+			}
 		} else {
 			return false
 		}

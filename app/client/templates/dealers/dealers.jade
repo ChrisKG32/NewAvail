@@ -7,7 +7,7 @@ template(name='Dealers')
 						| Casino (Select One)
 					each casinoList
 						option
-							!{name}
+							| !{name}
 				span.fa.fa-plus.new-casino
 			.form-group
 				select.form-control(id="dealer-name")
@@ -15,7 +15,7 @@ template(name='Dealers')
 						| Dealer (Select One)
 					each dealerList
 						option
-							!{name}
+							| !{name}
 				span.fa.fa-plus.new-dealer
 		.table-responsive.col-xs-12.no-gutter
 			table.table.table-striped
@@ -25,61 +25,18 @@ template(name='Dealers')
 							| time
 						th.blank
 							| blan
-						th
-							| 12pm
-						th
-							| 1pm
-						th
-							| 2pm
-						th
-							| 3pm
-						th
-							| 4pm
-						th
-							| 5pm
-						th
-							| 6pm
-						th
-							| 7pm
-						th
-							| 8pm
-						th
-							| 9pm
-						th
-							| 10pm
-						th
-							| 11pm
-						th
-							| 12am
-						th
-							| 1am
-						th
-							| 2am
-						th
-							| 3am
-						th
-							| 4am
-						th
-							| 5am
-						th
-							| 6am
-						th
-							| 7am
-						th
-							| 8am
-						th
-							| 9am
-						th
-							| 10am
-						th
-							| 11am
+						each calendarHeader
+							th(time-value="!{value}")
+								| !{visible}
 				tbody
-					tr
-						td.fri
-							| Fri
-						each dealerFri
-							td(class="!{this}")
-								| 
+					each weekdayRow
+						tr
+							td(day-value="!{day}")
+								| !{visible}
+							each dealerPresent
+								td(class="!{this}")
+									| 
+				//
 					tr
 						td.sat
 							| Sat

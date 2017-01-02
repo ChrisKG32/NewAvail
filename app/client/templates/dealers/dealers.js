@@ -81,7 +81,40 @@ Template.Dealers.helpers({
 			return []
 		}
 	},
-	dealerFri:function(){
+	calendarHeader:function(){
+		var headerValues = [];
+		for(var i = 0; i < 24; i++){
+			var hour;
+			if (i == 0 || i == 12){
+				hour = 12
+			} else {
+				if (i > 11) {
+					hour = i-12;
+				} else {
+					hour = i;
+				}
+			}
+			if (i > 11) {
+				headerValues.push({visible: hour + 'am', value: hour});
+			} else {
+				headerValues.push({visible: hour + 'pm', value: hour});
+			}
+		}
+		return headerValues
+	},
+	weekdayRow:function(){
+		return [
+			{visible: 'Fri', day: 'fri'},
+			{visible: 'Sat', day: 'sat'},
+			{visible: 'Sun', day: 'sun'},
+			{visible: 'Mon', day: 'mon'},
+			{visible: 'Tue', day: 'tue'},
+			{visible: 'Wed', day: 'wed'},
+			{visible: 'Thu', day: 'thu'}
+		]
+	},
+	dealerPresent:function(){
+		var thisDay = this.visible;
 		var selectedDealer = Template.instance().selectedDealer.get();
 		if (selectedDealer){
 			var dealerSessions = Sessions.find({dealer: selectedDealer }).fetch();
@@ -94,9 +127,9 @@ Template.Dealers.helpers({
 				for(var i = 0; i < 25; i++){
 					var timeStamp = dealerSessions && dealerSessions[i] && dealerSessions[i].createdAt;
 					var day = moment(timeStamp).format('ddd');
-					if (day === 'Fri'){
+					if (day === thisDay){
 						var time = moment(timeStamp).format('H');
-						if (time == timeArray[i + 2]) {
+						if (time == timeArray[i]) {
 							TFArray.push(true);
 						} else {
 							TFArray.push(false);
@@ -111,195 +144,6 @@ Template.Dealers.helpers({
 				return ['false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false']
 			}
 
-		} else {
-			return ['false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false']
-		}
-	},
-	dealerSat:function(){
-		var selectedDealer = Template.instance().selectedDealer.get();
-		if (selectedDealer){
-			var dealerSessions = Sessions.find({dealer: selectedDealer }).fetch();
-			if (dealerSessions && dealerSessions.length > 0){
-			
-				var timeArray = [99, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-				var TFArray = [];
-				for(var i = 0; i < 25; i++){
-					var timeStamp = dealerSessions && dealerSessions[i] && dealerSessions[i].createdAt;
-					var day = moment(timeStamp).format('ddd');
-					if (day === 'Sat'){
-						var time = moment(timeStamp).format('H');
-						if (time == timeArray[i + 2]) {
-							TFArray.push(true);
-						} else {
-							TFArray.push(false);
-						}
-					} else {
-						TFArray.push(false);
-					}
-				}
-				return TFArray
-			} else {
-				return ['false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false']
-			}
-		} else {
-			return ['false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false']
-		}
-	},
-	dealerSun:function(){
-		var selectedDealer = Template.instance().selectedDealer.get();
-		if (selectedDealer){
-			var dealerSessions = Sessions.find({dealer: selectedDealer }).fetch();
-
-			if (dealerSessions && dealerSessions.length > 0){
-			
-				var timeArray = [99, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-				var TFArray = [];
-				for(var i = 0; i < 25; i++){
-					var timeStamp = dealerSessions && dealerSessions[i] && dealerSessions[i].createdAt;
-					var day = moment(timeStamp).format('ddd');
-					if (day === 'Sun'){
-						var time = moment(timeStamp).format('H');
-						if (time == timeArray[i + 2]) {
-							TFArray.push(true);
-						} else {
-							TFArray.push(false);
-						}
-					} else {
-						TFArray.push(false);
-					}
-				}
-				return TFArray
-			} else {
-				return ['false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false']
-			}
-
-		} else {
-			return ['false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false']
-		}
-	},
-	dealerMon:function(){
-		var selectedDealer = Template.instance().selectedDealer.get();
-		if (selectedDealer){
-			var dealerSessions = Sessions.find({dealer: selectedDealer }).fetch();
-
-			if (dealerSessions && dealerSessions.length > 0){
-				
-				var timeArray = [99, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-				var TFArray = [];
-				for(var i = 0; i < 25; i++){
-					var timeStamp = dealerSessions && dealerSessions[i] && dealerSessions[i].createdAt;
-					var day = moment(timeStamp).format('ddd');
-					if (day === 'Mon'){
-						var time = moment(timeStamp).format('H');
-						if (time == timeArray[i + 2]) {
-							TFArray.push(true);
-						} else {
-							TFArray.push(false);
-						}
-					} else {
-						TFArray.push(false);
-					}
-				}
-				return TFArray
-			} else {
-				return ['false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false']
-			}
-		} else {
-			return ['false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false']
-		}
-	},
-	dealerTue:function(){
-		var selectedDealer = Template.instance().selectedDealer.get();
-		if (selectedDealer){
-			var dealerSessions = Sessions.find({dealer: selectedDealer }).fetch();
-
-			if (dealerSessions && dealerSessions.length > 0){
-			
-				var timeArray = [99, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-				var TFArray = [];
-				for(var i = 0; i < 25; i++){
-					var timeStamp = dealerSessions && dealerSessions[i] && dealerSessions[i].createdAt;
-					var day = moment(timeStamp).format('ddd');
-					if (day === 'Tue'){
-						var time = moment(timeStamp).format('H');
-						if (time == timeArray[i + 2]) {
-							TFArray.push(true);
-						} else {
-							TFArray.push(false);
-						}
-					} else {
-						TFArray.push(false);
-					}
-				}
-				return TFArray
-			} else {
-				return ['false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false']
-			}
-
-		} else {
-			return ['false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false']
-		}
-	},
-	dealerWed:function(){
-		var selectedDealer = Template.instance().selectedDealer.get();
-		if (selectedDealer){
-			var dealerSessions = Sessions.find({dealer: selectedDealer }).fetch();
-
-			if (dealerSessions && dealerSessions.length > 0){
-			
-				var timeArray = [99, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-				var TFArray = [];
-				for(var i = 0; i < 25; i++){
-					var timeStamp = dealerSessions && dealerSessions[i] && dealerSessions[i].createdAt;
-					var day = moment(timeStamp).format('ddd');
-					if (day === 'Wed'){
-						var time = moment(timeStamp).format('H');
-						if (time == timeArray[i + 2]) {
-							TFArray.push(true);
-						} else {
-							TFArray.push(false);
-						}
-					} else {
-						TFArray.push(false);
-					}
-				}
-				return TFArray
-			} else {
-				return ['false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false']
-			}
-			
-		} else {
-			return ['false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false']
-		}
-	},
-	dealerThu:function(){
-		var selectedDealer = Template.instance().selectedDealer.get();
-		if (selectedDealer){
-			var dealerSessions = Sessions.find({dealer: selectedDealer }).fetch();
-
-			if (dealerSessions && dealerSessions.length > 0){
-			
-				var timeArray = [99, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-				var TFArray = [];
-				for(var i = 0; i < 25; i++){
-					var timeStamp = dealerSessions && dealerSessions[i] && dealerSessions[i].createdAt;
-					var day = moment(timeStamp).format('ddd');
-					if (day === 'Thu'){
-						var time = moment(timeStamp).format('H');
-						if (time == timeArray[i + 2]) {
-							TFArray.push(true);
-						} else {
-							TFArray.push(false);
-						}
-					} else {
-						TFArray.push(false);
-					}
-				}
-				return TFArray
-			} else {
-				return ['false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false']
-			}
-			
 		} else {
 			return ['false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false']
 		}
