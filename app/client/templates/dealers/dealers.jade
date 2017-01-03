@@ -33,43 +33,8 @@ template(name='Dealers')
 						tr
 							td(day-value="!{day}")
 								| !{visible}
+							td.blank
+								| 
 							each dealerPresent
 								td(class="!{this}")
 									| 
-				//
-					tr
-						td.sat
-							| Sat
-						each dealerSat
-							td(class="!{this}")
-								| 
-					tr
-						td.sun
-							| Sun
-						each dealerSun
-							td(class="!{this}")
-								| 
-					tr
-						td.mon
-							| Mon
-						each dealerMon
-							td(class="!{this}")
-								| 
-					tr
-						td.tue
-							| Tue
-						each dealerTue
-							td(class="!{this}")
-								| 
-					tr
-						td.wed
-							| Wed
-						each dealerWed
-							td(class="!{this}")
-								| 
-					tr
-						td.thu
-							| Thu
-						each dealerThu
-							td(class="!{this}")
-								| 

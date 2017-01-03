@@ -180,3 +180,29 @@ Router.route('/dealers', {
     ]
   }
 });
+
+Router.route('/dealers/:_id', {
+  name: 'DealerProfile',
+  template: 'DealerProfile',
+  controller: 'HomeController',
+  where: 'client',
+  data: function(){
+    var currentDealer = this.params._id;
+    return Dealers.findOne(currentDealer)
+  },
+  onBeforeAction: function () {
+    var currentUser = Meteor.userId();
+    if (currentUser){
+      this.next();
+    } else {
+      this.render('Login');
+    }
+  },
+  waitOn:function(){
+    return [
+      Meteor.subscribe('allSessions'),
+      Meteor.subscribe('dealerList'),
+      Meteor.subscribe('casinoList')
+    ]
+  }
+});

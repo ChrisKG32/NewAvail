@@ -44,10 +44,14 @@
 				background-color: white;
 				margin-bottom: -5px !important;
 			}
+			tbody > tr:nth-child(odd) > td:first-child {
+				background-color: #f9f9f9;
+				border-bottom: 1px solid #f9f9f9;
+			}
 		}
 
 	}
 	.true {
-		background-color: blue;
+		background-color: #9d9d9d;
 	}
 }

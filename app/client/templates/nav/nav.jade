@@ -18,10 +18,11 @@ template(name='Nav')
 								a.new-expense(href="{{pathFor route='NewExpense'}}")
 									span.fa.fa-dollar.col-xs-2
 									| Expense
-							li.col-xs-12
-								a(href="{{pathFor route='Dealers'}}")
-									span.fa.fa-users.col-xs-2
-									| Dealers
+							//
+								li.col-xs-12
+									a(href="{{pathFor route='Dealers'}}")
+										span.fa.fa-users.col-xs-2
+										| Dealers
 						li.col-xs-12
 							a(href="{{pathFor route='Profile'}}")
 								span.fa.fa-user.col-xs-2

@@ -1,0 +1,7 @@
+template(name='DealerSchedule')
+	.dealer-schedule.well
+		ul.list-group
+			each dealerDays
+				li.list-group-item
+					| !{day} - !{start} - !{end}
+

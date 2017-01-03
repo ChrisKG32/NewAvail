@@ -1,0 +1,23 @@
+template(name='DealerProfile')
+	.dealer-profile
+		.col-xs-12.panel.text-center
+			img(src="http://www.carderator.com/assets/avatar_placeholder_small.png").img-circle
+			h4.text-center
+				| !{casino} - !{name}
+		.col-xs-12
+			ul.nav.nav-tabs
+				li.active
+					a
+						| Schedule
+				li
+					a
+						| Sessions
+				li
+					a
+						| Details
+			if activeTab 'schedule'
+				+DealerSchedule
+			else if activeTab 'sessions'
+				+DealerSessions
+			else if activeTab 'details'
+				+DealerDetails
