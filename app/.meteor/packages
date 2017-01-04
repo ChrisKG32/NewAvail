@@ -38,3 +38,4 @@ iron:router
 session
 momentjs:moment
 meteortoys:allthings
+aslagle:reactive-table

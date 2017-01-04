@@ -5,19 +5,22 @@ template(name='DealerProfile')
 			h4.text-center
 				| !{casino} - !{name}
 		.col-xs-12
-			ul.nav.nav-tabs
-				li.active
-					a
-						| Schedule
-				li
-					a
-						| Sessions
-				li
-					a
-						| Details
-			if activeTab 'schedule'
-				+DealerSchedule
-			else if activeTab 'sessions'
-				+DealerSessions
-			else if activeTab 'details'
-				+DealerDetails
+			if editSchedule
+				+EditDealerSchedule
+			else
+				ul.nav.nav-tabs.col-xs-12
+					li.dealer-tabs(id="schedule").active
+						a
+							| Schedule
+					li.dealer-tabs(id="sessions")
+						a
+							| Sessions
+					li.dealer-tabs(id="details")
+						a
+							| Details
+				if activeTab 'schedule'
+					+DealerSchedule
+				else if activeTab 'sessions'
+					+DealerSessions
+				else if activeTab 'details'
+					+DealerDetails

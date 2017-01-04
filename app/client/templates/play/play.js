@@ -265,12 +265,12 @@ Template.Play.helpers({
 		}		
 	},
 	casinoList:function(){
-		return Casinos.find({})
+		return Casinos.find({}, {sort: {name: -1}});
 	},
 	dealerList:function(){
 		var selectedCasino = Template.instance().selectedCasino.get();
 		if (selectedCasino){
-			return Dealers.find({casino: selectedCasino});
+			return Dealers.find({casino: selectedCasino}, {sort: {name: -1}});
 		} else {
 			return []
 		}

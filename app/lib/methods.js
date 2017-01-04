@@ -205,11 +205,68 @@ Meteor.methods({
     Casinos.insert({name: data});
   },
   'newDealer':function(data){
-    Dealers.insert({name: data.name, casino: data.casino});
+    Dealers.insert({
+        name: data.name, 
+        casino: data.casino, 
+        schedule: [
+            {day: 'Sun', dayValue: 0, present: false},
+            {day: 'Mon', dayValue: 1, present: false},
+            {day: 'Tue', dayValue: 2, present: false},
+            {day: 'Wed', dayValue: 3, present: false},
+            {day: 'Thu', dayValue: 4, present: false},
+            {day: 'Fri', dayValue: 5, present: false},
+            {day: 'Sat', dayValue: 6, present: false},
+        ],
+        img: false,
+        details: {
+            sex: false,
+            race: false,
+            age: false,
+            hairLength: false,
+            hairColor: false,
+            height: false,
+            glasses: false,
+            comments: false,
+            quality: false
+        }
+    });
   },
   'dealerSeat':function(data){
     Dealers.update({name: data.name, casino: data.casino}, {$set: {seat: data.seat}});
+  },
+  'updateDealerSchedule':function(data){
+        Dealers.update({_id: data.dealerId, 'schedule.day': data.day}, {$set: 
+            {'schedule.$.present': true, 'schedule.$.start': data.start, 'schedule.$.leave': data.leave}
+        });
+  },
+  'removeDealerScheduledDay':function(data){
+    Dealers.update({_id: data.dealerId, 'schedule.day': data.day}, {$set: 
+        {
+            'schedule.$.present': false, 'schedule.$.start': false, 'schedule.$.leave': false
+        }
+    })
+  },
+  'updateDealerDetails':function(data){
+
+    Dealers.update({_id: data.dealerId}, {$set: 
+        {
+            details: {
+                sex: data.sex,
+                race: data.race,
+                age: data.age,
+                height: data.height,
+                hairColor: data.hairColor,
+                hairLength: data.hairLength,
+                quality: data.quality,
+                glasses: data.glasses,
+                blackjack: data.blackjack,
+                comments: data.comments
+            },
+            seat: data.bestSeat
+        }
+    })
   }
+
   
 
 

@@ -2,6 +2,14 @@
 /* DealerProfile: Event Handlers */
 /*****************************************************************************/
 Template.DealerProfile.events({
+	'click li.dealer-tabs':function(e, tmpl){
+		var activeTab = $(e.currentTarget).attr('id');
+		if (!$(e.currentTarget).hasClass('active')){
+			$('.dealer-tabs').removeClass('active');
+			$(e.currentTarget).addClass('active');
+		}
+		tmpl.activeTab.set(activeTab)
+	}
 });
 
 /*****************************************************************************/
@@ -15,6 +23,10 @@ Template.DealerProfile.helpers({
 		} else {
 			return false
 		}
+	},
+	editSchedule:function(){
+		var dealerId = this._id;
+		return Session.get('editDealerSchedule') === dealerId
 	}
 });
 

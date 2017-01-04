@@ -1,0 +1,49 @@
+template(name='EditDealerSchedule')
+	.edit-dealer-schedule
+		.form-group
+			label(for="schedule-day")
+				| Day
+			select(id="schedule-day").form-control
+				option
+					| Day (Select One)
+				option
+					| Monday
+				option
+					| Tuesday
+				option
+					| Wednesday
+				option
+					| Thursday
+				option
+					| Friday
+				option
+					| Saturday
+				option
+					| Sunday
+		if selectedDay
+			.form-group
+				label(for="start-time")
+					| Start Time:
+				select(id="start-time").form-control
+					option
+						| Start Time (Select One)
+					each timeOfDay
+						option
+							| !{this}
+			.form-group
+				label(for="leave-time")
+					| Leave Time:
+				select(id="leave-time").form-control
+					option
+						| Leave Time (Select One)
+					each timeOfDay
+						option
+							| !{this}
+		.col-xs-12.buttons.text-center
+			.col-xs-6
+				.btn.btn-default.cancel-schedule-edit
+					| Cancel
+			.col-xs-6
+				.btn.btn-primary.submit-times
+					| Submit
+

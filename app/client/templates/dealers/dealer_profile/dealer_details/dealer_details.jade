@@ -1,2 +1,62 @@
 template(name='DealerDetails')
-	.dealer-details
+	.dealer-details.well.col-xs-12(id="dealer-details-edit")
+
+		.form-group.col-xs-6
+			label(for="sex")
+				| Sex
+			input.form-control(type="text" id="sex" value="!{details.sex}" disabled)
+		.form-group.col-xs-6
+			label(for="race")
+				| Race
+			input.form-control(type="text" id="race" value="!{details.race}" disabled)
+		.form-group.col-xs-6
+			label(for="age")
+				| Age
+			input.form-control(type="number" id="age" value="!{details.age}" disabled)
+		.form-group.col-xs-6
+			label(for="height")
+				| Height
+			input.form-control(type="text" id="height" value="!{details.height}" disabled)
+		.form-group.col-xs-6
+			label(for="hair-length")
+				| Hair Length
+			input.form-control(type="text" id="hair-length" value="!{details.hairLength}" disabled)
+		.form-group.col-xs-6
+			label(for="hair-color")
+				| Hair Color
+			input.form-control(type="text" id="hair-color" value="!{details.hairColor}" disabled)
+		.form-group.col-xs-6
+			label(for="seat")
+				| Best Seat
+			input.form-control(type="number" id="seat" value="!{seat}" disabled)
+		.form-group.col-xs-6
+			label(for="quality")
+				| Quality (1-5)
+			input.form-control(type="number" id="quality" value="!{details.quality}" disabled)
+		.form-group.col-xs-6
+			label.checkbox-inline.no_indent
+				<input type="checkbox" id="glasses" {{checked 'glasses'}} disabled> 
+				| Glasses
+		.form-group.col-xs-6
+			label.checkbox-inline.no_indent
+				<input type="checkbox" id="blackjack" {{checked 'blackjack'}} disabled>
+				| Blackjack
+		.form-group.col-xs-12
+			label(for="comments")
+				| Comments
+			textarea.form-control(id="comments" disabled)
+				| !{details.comments}
+		if editFields
+			.col-xs-12.text-center
+				.col-xs-6
+					.btn.btn-default.cancel-edit-fields
+						| Cancel
+				.col-xs-6
+					.btn.btn-primary.update-fields
+						| Update
+		else
+			.col-xs-12
+				.list-group-item.text-center
+					a.edit-fields
+						span.fa.fa-edit
+						| Edit Fields

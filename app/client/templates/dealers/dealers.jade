@@ -17,24 +17,9 @@ template(name='Dealers')
 						option
 							| !{name}
 				span.fa.fa-plus.new-dealer
-		.table-responsive.col-xs-12.no-gutter
-			table.table.table-striped
-				thead
-					tr
-						th.blank
-							| time
-						th.blank
-							| blan
-						each calendarHeader
-							th(time-value="!{value}")
-								| !{visible}
-				tbody
-					each weekdayRow
-						tr
-							td(day-value="!{day}")
-								| !{visible}
-							td.blank
-								| 
-							each dealerPresent
-								td(class="!{this}")
-									| 
+		if selectedDealer			
+			.col-xs-12
+				ul.list-group
+					li.list-group-item.text-center
+						a.view-dealer-profile
+							| View Profile

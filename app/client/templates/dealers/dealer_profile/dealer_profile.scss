@@ -2,6 +2,8 @@
 /* DealerProfile: Style */
 /*****************************************************************************/
 .dealer-profile {
+	height: calc(100% - 56px);
+	overflow-y: scroll;
 
 	.panel {
 		margin-bottom: 5px;
@@ -12,6 +14,10 @@
 			margin-top: 0;
 
 		}
+	}
+	.dealer-tabs {
+		text-align: center;
+		padding: 0;
 	}
 	
 }

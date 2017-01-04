@@ -1,7 +1,13 @@
 template(name='DealerSchedule')
-	.dealer-schedule.well
-		ul.list-group
-			each dealerDays
-				li.list-group-item
-					| !{day} - !{start} - !{end}
+	.dealer-schedule.well.col-xs-12
+		.list-group-item.col-xs-12.text-center
+			a.edit-dealer-schedule
+				span.fa.fa-edit
+				| Edit Schedule
+		each dealerSchedule
+			.list-group-item.col-xs-12.text-center
+				span.pull-left
+					| !{day}
+				| !{start} - !{leave}
+				span.pull-right.fa.fa-close
 

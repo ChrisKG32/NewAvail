@@ -64,6 +64,15 @@ Template.Dealers.events({
 			}
 		}
 	},
+	'click .view-dealer-profile':function(e, tmpl){
+		var selectedCasino = tmpl.selectedCasino.get();
+		var selectedDealer = tmpl.selectedDealer.get();
+		if (selectedCasino && selectedDealer) {
+			var dealer = Dealers.findOne({casino: selectedCasino, name: selectedDealer});
+			var dealerId = dealer && dealer._id;
+			Router.go('DealerProfile', {_id: dealerId});
+		}
+	}
 });
 
 /*****************************************************************************/
@@ -81,121 +90,13 @@ Template.Dealers.helpers({
 			return []
 		}
 	},
-	calendarHeader:function(){
-		var headerValues = [];
-		for(var i = 0; i < 24; i++){
-			var hour;
-			if (i == 0 || i == 12){
-				hour = 12
-			} else {
-				if (i > 11) {
-					hour = i-12;
-				} else {
-					hour = i;
-				}
-			}
-			if (i > 11) {
-				headerValues.push({visible: hour + 'am', value: hour});
-			} else {
-				headerValues.push({visible: hour + 'pm', value: hour});
-			}
-		}
-		return headerValues
-	},
-	weekdayRow:function(){
-		return [
-			{visible: 'Fri', day: 'fri'},
-			{visible: 'Sat', day: 'sat'},
-			{visible: 'Sun', day: 'sun'},
-			{visible: 'Mon', day: 'mon'},
-			{visible: 'Tue', day: 'tue'},
-			{visible: 'Wed', day: 'wed'},
-			{visible: 'Thu', day: 'thu'}
-		]
-	},
-	dealerPresent:function(){
-		var thisDay = this.visible;
+	selectedDealer:function(){
+		var selectedCasino = Template.instance().selectedCasino.get();
 		var selectedDealer = Template.instance().selectedDealer.get();
-		if (selectedDealer){
-			var dealerSessions = Sessions.find({dealer: selectedDealer }).fetch();
-
-			var startHour;
-			var endHour;
-			var schedule = {};
-			var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-			for(var i = 0; i < days.length; i++){
-				schedule[days[i]] = {};
-				for (var j = 0; j < 24; j++){
-					schedule[days[i]][j] = false;
-				}
-			}
-			_.each(dealerSessions, function(entry){
-				var startDay = moment(entry.createdAt).format('ddd');
-				var endDay = moment(entry.completedAt).format('ddd');
-				startHour = moment(entry.createdAt).format('H');
-				endHour = moment(entry.completedAt).format('H');
-				if (endDay != startDay) {
-					var hoursList = 24 - startHour;
-					for (var i = 0; i < hoursList; i++) {
-						schedule[startDay][(Number(startHour) + i)] = true;
-					 
-					}
-					for (var i = 0; i < Number(endHour) + 1; i++){
-						schedule[endDay][i] = true;
-
-					}
-				} else {
-					for (var i = Number(startHour); i <= Number(endHour); i++) {
-						schedule[startDay][i] = true;
-					}
-				}
-			});
-
-			if (dealerSessions && dealerSessions.length > 0){
-			
-				var timeArray = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-				var TFArray = [];
-				for(var i = 0; i < 24; i++){
-					if (schedule[thisDay][timeArray[i]] === true){
-						TFArray.push('true')
-					} else {
-						TFArray.push('false');
-					}
-
-
-
-					/*
-					var startedAt = dealerSessions && dealerSessions[i] && dealerSessions[i].createdAt;
-					var endedAt = dealerSessions && dealerSessions[i] && dealerSessions[i].completedAt;
-					if (startedAt && endedAt) {
-						var startDay = moment(startedAt).format('ddd');
-						var endDay = moment(endedAt).format('ddd');
-					}
-					if ((startDay && startDay === thisDay) || (endDay && endDay === thisDay)){
-						if (startedAt) {
-							var startedTime = moment(startedAt).format('H');
-						}
-						if (endedAt) {
-							var endedTime = moment(endedAt).format('H');
-						}
-						console.log(startedTime);
-						if ((startedTime == timeArray[i]) || endedTime == timeArray[i]) {
-							TFArray.push(true);
-						} else {
-							TFArray.push(false);
-						}
-					} else {
-						TFArray.push(false);
-					}*/
-				}
-				return TFArray
-
-			} else {
-				return ['false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false']
-			}
-
+		if (selectedCasino && selectedDealer) {
+			return true
 		} else {
-			return ['false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false']
+			return false
 		}
 	}
 

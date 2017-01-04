@@ -202,7 +202,8 @@ Router.route('/dealers/:_id', {
     return [
       Meteor.subscribe('allSessions'),
       Meteor.subscribe('dealerList'),
-      Meteor.subscribe('casinoList')
+      Meteor.subscribe('casinoList'),
+      Meteor.subscribe('Games')
     ]
   }
 });
