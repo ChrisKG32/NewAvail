@@ -3,12 +3,12 @@ template(name='CasinoSchedule')
 		if casinoPage
 			ul.list-group
 				each scheduleDays
-					li.list-group-item.header(day-id="!{number}")
+					li.list-group-item.day-header(day-id="!{dayValue}")
 						| !{text}
 						span.badge
 							| !{number} Dealers
 					each casinoSchedule
-						li.list-group-item.dealer-list.text-center(day-id="!{../number}")
+						li.list-group-item.dealer-list.hidden.text-center(day-id="!{../dayValue}")
 							span.pull-left
 								| !{dealerName}
 							span

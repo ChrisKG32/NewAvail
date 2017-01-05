@@ -15,9 +15,30 @@ Template.EditDealerSchedule.events({
 	},
 	'click .submit-times':function(e, tmpl){
 		var day = $('#schedule-day').val();
+		var startValue = $('#start-time').attr('time-value');
+		var leaveValue = $('#leave-time').attr('time-value');
 		var start = $('#start-time').val();
 		var leave = $('#leave-time').val();
-		var data = {dealerId: this._id, casino: this.casino, day: day.substr(0,3), start: start, leave: leave};
+		var dayValues = {
+			Mon: 1,
+			Tue: 2,
+			Wed: 3,
+			Thu: 4,
+			Fri: 5,
+			Sat: 6,
+			Sun: 0
+		}
+		day = day.substr(0,3);
+		var data = {
+			dealerId: this._id, 
+			casino: this.casino, 
+			day: day, 
+			dayValue:dayValues[day],  
+			start: start, 
+			startValue: startValue,
+			leave: leave,
+			leaveValue: leaveValue
+		};
 		Meteor.call('updateDealerSchedule', data, function(e,r){
 			if (e){
 				console.log(e.reason);
@@ -42,30 +63,30 @@ Template.EditDealerSchedule.helpers({
 	},
 	timeOfDay:function(){
 		return [
-			'12am',
-			'1am',
-			'2am',
-			'3am',
-			'4am',
-			'5am',
-			'6am',
-			'7am',
-			'8am',
-			'9am',
-			'10am',
-			'11am',
-			'12pm',
-			'1pm',
-			'2pm',
-			'3pm',
-			'4pm',
-			'5pm',
-			'6pm',
-			'7pm',
-			'8pm',
-			'9pm',
-			'10pm',
-			'11pm'
+			{text: '12am', value: 19},
+			{text: '1am', value: 20},
+			{text: '2am', value: 21},
+			{text: '3am', value: 22},
+			{text: '4am', value: 23},
+			{text: '5am', value: 24},
+			{text: '6am', value: 1},
+			{text: '7am', value: 2},
+			{text: '8am', value: 3},
+			{text: '9am', value: 4},
+			{text: '10am', value: 5},
+			{text: '11am', value: 6},
+			{text: '12pm', value: 7},
+			{text: '1pm', value: 8},
+			{text: '2pm', value: 9},
+			{text: '3pm', value: 10},
+			{text: '4pm', value: 11},
+			{text: '5pm', value: 12},
+			{text: '6pm', value: 13},
+			{text: '7pm', value: 14},
+			{text: '8pm', value: 15},
+			{text: '9pm', value: 16},
+			{text: '10pm', value: 17},
+			{text: '11pm', value: 18}
 		]
 	}
 });

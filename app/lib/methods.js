@@ -221,10 +221,13 @@ Meteor.methods({
             Schedule.insert({
                 dealerId: data.dealerId,
                 casinoId: data.casino, 
-                day: data.day, 
+                day: data.day,
+                dayValue: data.dayValue,
                 present: true, 
                 start: data.start,
-                leave: data.leave
+                startValue: data.startValue,
+                leave: data.leave,
+                leaveValue: data.leaveValue
             });
         }
   },

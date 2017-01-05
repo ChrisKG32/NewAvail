@@ -39,7 +39,7 @@ Template.DealerSchedule.helpers({
 		})
 		*/
 
-		return Schedule.find({dealerId: dealerId})
+		return Schedule.find({dealerId: dealerId}, {sort: {dayValue: 1}})
 	}
 });
 

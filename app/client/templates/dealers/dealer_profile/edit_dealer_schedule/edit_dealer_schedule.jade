@@ -28,8 +28,8 @@ template(name='EditDealerSchedule')
 					option
 						| Start Time (Select One)
 					each timeOfDay
-						option
-							| !{this}
+						option(time-value="!{value}")
+							| !{text}
 			.form-group
 				label(for="leave-time")
 					| Leave Time:
@@ -37,8 +37,8 @@ template(name='EditDealerSchedule')
 					option
 						| Leave Time (Select One)
 					each timeOfDay
-						option
-							| !{this}
+						option(time-value="!{value}")
+							| !{text}
 		.col-xs-12.buttons.text-center
 			.col-xs-6
 				.btn.btn-default.cancel-schedule-edit
