@@ -24,6 +24,9 @@ Template.DealerSchedule.events({
 Template.DealerSchedule.helpers({
 	dealerSchedule:function(){
 		var dealerData = this;
+		var dealerId = dealerData && dealerData._id;
+		/*
+
 		var dotw = [];
 		var dealer = Dealers.findOne({_id: this._id});
 		var dealerSchedule = dealer.schedule;
@@ -34,8 +37,9 @@ Template.DealerSchedule.helpers({
 				return false
 			}
 		})
+		*/
 
-		return dealerSchedule
+		return Schedule.find({dealerId: dealerId})
 	}
 });
 

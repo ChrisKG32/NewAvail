@@ -33,14 +33,15 @@ template(name='DealerDetails')
 			label(for="quality")
 				| Quality (1-5)
 			input.form-control(type="number" id="quality" value="!{details.quality}" disabled)
-		.form-group.col-xs-6
-			label.checkbox-inline.no_indent
-				<input type="checkbox" id="glasses" {{checked 'glasses'}} disabled> 
-				| Glasses
-		.form-group.col-xs-6
-			label.checkbox-inline.no_indent
-				<input type="checkbox" id="blackjack" {{checked 'blackjack'}} disabled>
-				| Blackjack
+		//
+			.form-group.col-xs-6
+				label.checkbox-inline.no_indent
+					<input type="checkbox" id="glasses" {{checked 'glasses'}} disabled> 
+					| Glasses
+			.form-group.col-xs-6
+				label.checkbox-inline.no_indent
+					<input type="checkbox" id="blackjack" {{checked 'blackjack'}} disabled>
+					| Blackjack
 		.form-group.col-xs-12
 			label(for="comments")
 				| Comments

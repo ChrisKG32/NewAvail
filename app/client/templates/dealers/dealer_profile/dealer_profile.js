@@ -27,6 +27,12 @@ Template.DealerProfile.helpers({
 	editSchedule:function(){
 		var dealerId = this._id;
 		return Session.get('editDealerSchedule') === dealerId
+	},
+	casinoName:function(){
+		if (this.casino){
+			var casinoName = Casinos.findOne({_id: this.casino}).name
+			return casinoName
+		}
 	}
 });
 

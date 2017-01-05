@@ -1,2 +1,23 @@
 template(name='Casinos')
 	.casinos
+		.inputs.col-xs-9.col-xs-offset-1.no-gutter
+			.form-group
+				select.form-control(id="casino-name")
+					option
+						| Casino (Select One)
+					each casinoList
+						option
+							| !{name}
+				span.fa.fa-plus.new-casino
+		.col-xs-12
+			ul.nav.nav-tabs.col-xs-12
+				li.dealer-tabs(id="schedule").active
+					a
+						| Schedule
+				li.dealer-tabs(id="sessions")
+					a
+						| Sessions
+				li.dealer-tabs(id="details")
+					a
+						| Details
+			+CasinoSchedule

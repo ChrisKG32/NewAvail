@@ -7,6 +7,8 @@ template(name='Games')
 						| !{this.name}
 		.form-group.col-xs-10.col-xs-offset-1
 			select.form-control(id="game-variant")
+				option
+					| (Select variant)
 				each selectedGame
 					option(id="!{_id}")
 						| !{this.variant}

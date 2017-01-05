@@ -181,6 +181,29 @@ Router.route('/dealers', {
   }
 });
 
+Router.route('/casinos', {
+  name: 'Casinos',
+  template: 'Casinos',
+  controller: 'HomeController',
+  where: 'client',
+  onBeforeAction: function () {
+    var currentUser = Meteor.userId();
+    if (currentUser){
+      this.next();
+    } else {
+      this.render('Login');
+    }
+  },
+  waitOn:function(){
+    return [
+      Meteor.subscribe('allSessions'),
+      Meteor.subscribe('dealerList'),
+      Meteor.subscribe('casinoList'),
+      Meteor.subscribe('scheduleList')
+    ]
+  }
+});
+
 Router.route('/dealers/:_id', {
   name: 'DealerProfile',
   template: 'DealerProfile',
@@ -203,7 +226,8 @@ Router.route('/dealers/:_id', {
       Meteor.subscribe('allSessions'),
       Meteor.subscribe('dealerList'),
       Meteor.subscribe('casinoList'),
-      Meteor.subscribe('Games')
+      Meteor.subscribe('Games'),
+      Meteor.subscribe('scheduleList')
     ]
   }
 });

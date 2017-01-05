@@ -17,7 +17,7 @@ Template.EditDealerSchedule.events({
 		var day = $('#schedule-day').val();
 		var start = $('#start-time').val();
 		var leave = $('#leave-time').val();
-		var data = {dealerId: this._id, day: day.substr(0,3), start: start, leave: leave};
+		var data = {dealerId: this._id, casino: this.casino, day: day.substr(0,3), start: start, leave: leave};
 		Meteor.call('updateDealerSchedule', data, function(e,r){
 			if (e){
 				console.log(e.reason);

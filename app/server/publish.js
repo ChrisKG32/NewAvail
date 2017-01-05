@@ -37,3 +37,8 @@ Meteor.publish('casinoList', function(){
 Meteor.publish('dealerList', function(){
 	return Dealers.find();
 });
+
+
+Meteor.publish('scheduleList', function(){
+	return Schedule.find();
+});

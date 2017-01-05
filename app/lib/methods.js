@@ -176,28 +176,7 @@ Meteor.methods({
     });
   },
   'passChange':function(data){
-/*
-    if (data.password1 === data.password2) {
 
-        if (data.confirmPassword1 === data.confirmPassword2) {
-
-            var oldPassword = data.password2;
-            var newPassword = data.confirmPassword2;
-
-            console.log(oldPassword);
-            console.log(newPassword);
-
-            
-            
-            
-
-        } else {
-            console.log('Passwords do not match');
-        }
-
-    } else {
-        console.log('Passwords do not match');
-    }*/
 
 
   },
@@ -207,16 +186,7 @@ Meteor.methods({
   'newDealer':function(data){
     Dealers.insert({
         name: data.name, 
-        casino: data.casino, 
-        schedule: [
-            {day: 'Sun', dayValue: 0, present: false},
-            {day: 'Mon', dayValue: 1, present: false},
-            {day: 'Tue', dayValue: 2, present: false},
-            {day: 'Wed', dayValue: 3, present: false},
-            {day: 'Thu', dayValue: 4, present: false},
-            {day: 'Fri', dayValue: 5, present: false},
-            {day: 'Sat', dayValue: 6, present: false},
-        ],
+        casino: data.casino,
         img: false,
         details: {
             sex: false,
@@ -227,7 +197,8 @@ Meteor.methods({
             height: false,
             glasses: false,
             comments: false,
-            quality: false
+            quality: false,
+            blackjack: false
         }
     });
   },
@@ -235,16 +206,30 @@ Meteor.methods({
     Dealers.update({name: data.name, casino: data.casino}, {$set: {seat: data.seat}});
   },
   'updateDealerSchedule':function(data){
-        Dealers.update({_id: data.dealerId, 'schedule.day': data.day}, {$set: 
-            {'schedule.$.present': true, 'schedule.$.start': data.start, 'schedule.$.leave': data.leave}
-        });
+        var currentSchedule = Schedule.findOne({dealerId: data.dealerId, day: data.day}); 
+        var scheduleId = currentSchedule && currentSchedule._id;
+        if (currentSchedule){
+            Schedule.update({_id: scheduleId, day: data.day}, {$set: 
+                {
+                    present: true,
+                    start: data.start,
+                    leave: data.leave
+
+                }
+            })
+        } else {
+            Schedule.insert({
+                dealerId: data.dealerId,
+                casinoId: data.casino, 
+                day: data.day, 
+                present: true, 
+                start: data.start,
+                leave: data.leave
+            });
+        }
   },
   'removeDealerScheduledDay':function(data){
-    Dealers.update({_id: data.dealerId, 'schedule.day': data.day}, {$set: 
-        {
-            'schedule.$.present': false, 'schedule.$.start': false, 'schedule.$.leave': false
-        }
-    })
+    Schedule.remove({dealerId: data.dealerId, day: data.day}); 
   },
   'updateDealerDetails':function(data){
 

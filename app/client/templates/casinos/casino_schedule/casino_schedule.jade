@@ -1,0 +1,20 @@
+template(name='CasinoSchedule')
+	.casino-schedule.well.col-xs-12
+		if casinoPage
+			ul.list-group
+				each scheduleDays
+					li.list-group-item.header(day-id="!{number}")
+						| !{text}
+						span.badge
+							| !{number} Dealers
+					each casinoSchedule
+						li.list-group-item.dealer-list.text-center(day-id="!{../number}")
+							span.pull-left
+								| !{dealerName}
+							span
+								| !{start} - !{leave}
+							span.pull-right
+								| !{dealerQuality}
+		else
+			h4.text-center.page-header
+				| Select casino to continue
