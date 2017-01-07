@@ -38,6 +38,12 @@ Template.DealerDetails.events({
 		console.log(data);
 
 		Meteor.call('updateDealerDetails', data, function(e,r){
+			if(e){
+				alert(e.reason);
+			} else {
+				$('input:not(:disabled)').attr('disabled', true);
+				tmpl.editFields.set(false);
+			}
 		});
 	}
 });
