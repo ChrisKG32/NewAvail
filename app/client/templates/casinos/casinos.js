@@ -41,13 +41,23 @@ Template.Casinos.helpers({
 /* Casinos: Lifecycle Hooks */
 /*****************************************************************************/
 Template.Casinos.onCreated(function () {
-	Session.set('casinoPage', false);
+	if (!Session.get('redirect')){
+		Session.set('casinoPage', false);
+	}
+	
 
 });
 
 Template.Casinos.onRendered(function () {
+	if (Session.get('redirect')){
+		var casinoDB = Casinos.findOne(Session.get('casinoPage'));
+		var casinoName = casinoDB && casinoDB.name;
+		$('#casino-name').val(casinoName);
+	}
 
 });
 
 Template.Casinos.onDestroyed(function () {
+	Session.set('casinoPage', false);
+	Session.set('redirect', false);
 });

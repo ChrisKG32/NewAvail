@@ -11,6 +11,9 @@ Template.CasinoSchedule.events({
 		} else {
 			dealerList.addClass('hidden');
 		}
+	},
+	'click li.dealer-list':function(e, tmpl){
+		Router.go('DealerProfile', {_id: this.dealerId});
 	}
 });
 

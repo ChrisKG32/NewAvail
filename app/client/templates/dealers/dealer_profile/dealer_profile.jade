@@ -2,8 +2,11 @@ template(name='DealerProfile')
 	.dealer-profile
 		.col-xs-12.panel.text-center
 			img(src="http://www.carderator.com/assets/avatar_placeholder_small.png").img-circle
-			h4.text-center
-				| !{casinoName} - !{name}
+			h4.text-center.col-xs-12
+				a.col-xs-6.casino-id
+					| !{casinoName}
+				span.col-xs-6
+					| !{name}
 		.col-xs-12
 			if editSchedule
 				+EditDealerSchedule

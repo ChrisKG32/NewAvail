@@ -9,6 +9,12 @@ Template.DealerProfile.events({
 			$(e.currentTarget).addClass('active');
 		}
 		tmpl.activeTab.set(activeTab)
+	},
+	'click a.casino-id':function(e, tmpl){
+		Session.set('redirect', true);
+		Session.set('casinoPage', this.casino);
+		Router.go('Casinos');
+		
 	}
 });
 

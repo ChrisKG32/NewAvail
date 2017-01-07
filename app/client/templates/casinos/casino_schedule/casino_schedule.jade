@@ -9,7 +9,7 @@ template(name='CasinoSchedule')
 							| !{number} Dealers
 					each casinoSchedule
 						li.list-group-item.dealer-list.hidden.text-center(day-id="!{../dayValue}")
-							span.pull-left
+							a.pull-left
 								| !{dealerName}
 							span
 								| !{start} - !{leave}

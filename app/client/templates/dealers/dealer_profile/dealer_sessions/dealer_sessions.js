@@ -9,11 +9,12 @@ Template.DealerSessions.events({
 /*****************************************************************************/
 Template.DealerSessions.helpers({
 	settings:function(){
+		console.log(this._id);
 		var thisDealer = Dealers.findOne({_id: this._id});
 
 		return {
 
-			collection: Sessions.find({dealer: thisDealer.name}),
+			collection: Sessions.find({dealer: (thisDealer.name).toLowerCase()}),
 			rowsPerPage: 10,
 			showFilter: false,
 			fields: [
