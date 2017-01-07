@@ -5,7 +5,7 @@
 App.info({
 	id: 'avail.test',
 	name: 'Avail',
-	version: '0.0.92',
+	version: '0.0.93',
 	description: 'Casino game play-tracking application',
 	author: 'KG',
 	email: 'inten03@gmail.com',

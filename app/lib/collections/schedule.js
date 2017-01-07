@@ -1,5 +1,4 @@
 Schedule = new Mongo.Collection('schedule');
-
 /*
 if (Meteor.isServer) {
   Schedule.allow({
