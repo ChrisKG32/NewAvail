@@ -15,10 +15,37 @@ Template.EditDealerSchedule.events({
 	},
 	'click .submit-times':function(e, tmpl){
 		var day = $('#schedule-day').val();
-		var startValue = $('#start-time').attr('time-value');
-		var leaveValue = $('#leave-time').attr('time-value');
+		var timeValues = {
+			'6am': 1,
+			'7am': 2,
+			'8am': 3,
+			'9am': 4,
+			'10am': 5,
+			'11am': 6,
+			'12pm': 7,
+			'1pm': 8,
+			'2pm': 9,
+			'3pm': 10,
+			'4pm': 11,
+			'5pm': 12,
+			'6pm': 13,
+			'7pm': 14,
+			'8pm': 15,
+			'9pm': 16,
+			'10pm': 17,
+			'11pm': 18,
+			'12am': 19,
+			'1am': 20,
+			'2am': 21,
+			'3am': 22,
+			'4am': 23,
+			'5am': 24
+		}
+
 		var start = $('#start-time').val();
 		var leave = $('#leave-time').val();
+		var startValue = timeValues[start];
+		var leaveValue = timeValues[leave];
 		var dayValues = {
 			Mon: 1,
 			Tue: 2,
