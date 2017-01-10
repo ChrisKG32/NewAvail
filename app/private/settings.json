@@ -4,5 +4,7 @@
       "ROOT_URL": "http://avail2.meteorapp.com",
       "MONGO_URL": "mongodb://inten03:zorro101@aws-us-east-1-portal.18.dblayer.com:11549/avail2"
     }
-  }
+  },
+  "AWSAccessKeyId": "AKIAJA54SNNFKRLH4OTQ",
+  "AWSSecretAccessKey": "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"
 }

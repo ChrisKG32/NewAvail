@@ -253,6 +253,10 @@ Meteor.methods({
             seat: data.bestSeat
         }
     })
+  },
+    storeUrlInDatabase: function( url ) {
+    check( url, String );
+    Modules.both.checkUrlValidity( url );
   }
 
   

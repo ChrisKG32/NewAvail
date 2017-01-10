@@ -37,7 +37,7 @@ template(name='NewExpense')
 							i.fa.fa-camera
 							| Upload
 							input(type="file" capture="camera" accept="image/*" id="imgInp" readonly)
-					input.form-control(type="text" id="display-path")
+					input.form-control(type="text" id="display-path" value="{{fileUploaded}}")
 				img(id="img-upload")
 		a.btn.btn-default.col-xs-5(id="cancel-expense" href="{{pathFor route='Profile'}}")
 			| Cancel

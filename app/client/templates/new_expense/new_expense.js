@@ -21,7 +21,7 @@ Template.NewExpense.events({
       },function(e, data){
         $('#img-upload').attr('src', data);
         //$('#display-path').val();
-        dataURI = data;
+        Modules.client.uploadToAmazonS3(data);
 
       });
     }
@@ -51,7 +51,7 @@ Template.NewExpense.events({
 		var imgURL = '';
 
     if (datepicker && method && amount && type) {
-  		if (dataURI){
+  		
         /*
   			//var files = $('input#imgInp')[0].files;
   			S3.upload({
@@ -72,23 +72,13 @@ Template.NewExpense.events({
             type: type,
             comments: comments,
             fileName: displayPath,
-            img: dataURI
+            img: displayPath
+            //img: dataURI
           }
 
-  		} else {
-  			var data = {
-  					createdAt: new Date(),
-  					expenseDate: new Date(datepicker.replace(/\//g, '-')),
-  					createdBy: currentUser,
-  					date: datepicker,
-  					method: method,
-  					amount: amount,
-  					type: type,
-  					comments: comments,
-  					fileName: displayPath,
-  					img: ''
-  				}
-  		}
+  		
+  			
+  		
       Meteor.call('newExpense', data, function(){
         console.log('Logged Expense Successfully');
         Router.go('Profile');
@@ -113,9 +103,18 @@ Template.NewExpense.events({
 /* NewExpense: Helpers */
 /*****************************************************************************/
 Template.NewExpense.helpers({
-	files:function(){
-	 	return S3.collection.find();
-	 }
+  files:function(){
+    return S3.collection.find();
+  },
+  fileUploaded:function(){
+    var uploaded = Session.get('fileUploaded');
+
+    if (uploaded){
+      return uploaded
+    } else {
+      return false
+    }
+  }
 });
 
 /*****************************************************************************/
@@ -123,6 +122,7 @@ Template.NewExpense.helpers({
 /*****************************************************************************/
 Template.NewExpense.onCreated(function () {
 	this.currentUpload = new ReactiveVar(false);
+  Session.set('fileUploaded', false);
 });
 
 Template.NewExpense.onRendered(function () {
